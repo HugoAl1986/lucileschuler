@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -21,6 +23,14 @@ class Client
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Cheval::class, orphanRemoval: true)]
+    private Collection $chevals;
+
+    public function __construct()
+    {
+        $this->chevals = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +69,36 @@ class Client
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cheval>
+     */
+    public function getChevals(): Collection
+    {
+        return $this->chevals;
+    }
+
+    public function addCheval(Cheval $cheval): self
+    {
+        if (!$this->chevals->contains($cheval)) {
+            $this->chevals->add($cheval);
+            $cheval->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCheval(Cheval $cheval): self
+    {
+        if ($this->chevals->removeElement($cheval)) {
+            // set the owning side to null (unless already changed)
+            if ($cheval->getClient() === $this) {
+                $cheval->setClient(null);
+            }
+        }
 
         return $this;
     }

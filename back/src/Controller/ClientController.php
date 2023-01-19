@@ -33,8 +33,11 @@ class ClientController extends AbstractController
     #[Route('/admin/clients', name : 'clients')]
     public function getClients() : JsonResponse
     {
+
         $response = $this -> cs ->getClients();
-        return $this -> json ($response["content"], $response["status_code"]);
+
+        return $this -> json ([$response["content"]], $response["status_code"]);
+        
     }
 
     #[Route('/admin/update_client/{id}', name : "update_client")]
@@ -43,9 +46,19 @@ class ClientController extends AbstractController
 
         $datas = $req -> getContent();
         $client = $this->serialization->deserializeJson($datas, Client::class);
-        $response = $this -> cs -> editClient($client,$id);
+        $response = $this -> cs -> updateClient($client,$id);
 
         return $this -> json ($response["content"], $response["status_code"]);
+
+    }
+
+    #[Route('admin/remove_client/{id}', name : 'remove_client')]
+    public function removeClient (int $id) :JsonResponse
+    {
+        
+       $response =  $this -> cs -> removeClient($id);
+
+       return $this -> json ($response["content"], $response["status_code"]);
 
     }
 }

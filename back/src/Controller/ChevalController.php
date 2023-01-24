@@ -26,6 +26,7 @@ class ChevalController extends AbstractController
         $cheval =  $this -> serialization ->deserializeJson($payload,Cheval::class);
        
         $response = $this -> cs -> saveCheval($cheval, $client_id);
+        
         return $this->json(["message" => $response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function($object){
             return $object->getId();
             }]
@@ -38,6 +39,7 @@ class ChevalController extends AbstractController
         $payload = $req -> getContent();
         $cheval = $this -> serialization -> deserializeJson($payload, Cheval::class);
         $response = $this -> cs -> updateCheval($cheval, $id);
-        return $this -> json ([$response["content"]], $response["status_code"]);
+
+        return $this -> json (["message" => $response["content"]], $response["status_code"]);
     }
 }

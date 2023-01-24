@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ChevalRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: ChevalRepository::class)]
 class Cheval

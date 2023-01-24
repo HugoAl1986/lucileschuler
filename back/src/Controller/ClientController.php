@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Client;
 use App\Services\ClientService;
 use App\Utils\Serialization;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class ClientController extends AbstractController
 {
@@ -36,7 +37,9 @@ class ClientController extends AbstractController
 
         $response = $this -> cs ->getClients();
 
-        return $this -> json ([$response["content"]], $response["status_code"]);
+        return $this -> json ([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function($object){
+            return $object->getId();
+        }]);
         
     }
 

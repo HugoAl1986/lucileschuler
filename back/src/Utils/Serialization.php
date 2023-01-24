@@ -2,6 +2,9 @@
 
 namespace App\Utils;
 
+use App\Entity\ContactMail;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class Serialization {
@@ -13,6 +16,16 @@ class Serialization {
 
     public function deserializeJson($datas,$clazz){
         return $this->serializer->deserialize($datas,$clazz,'json');
+    }
+
+    public function deserializeEmailContactJson($datas){
+        
+        $context = new ObjectNormalizerContextBuilder();
+        $context -> withGroups(['when_post'])
+                 -> toArray();
+       
+        return $this->serializer->deserialize($datas, ContactMail::class, 'json', [ObjectNormalizer::GROUPS => 'when_post']);       
+
     }
 
 }

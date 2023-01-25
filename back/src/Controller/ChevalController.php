@@ -19,7 +19,7 @@ class ChevalController extends AbstractController
 
     }
 
-    #[Route('/admin/create_cheval/{client_id}', name: 'create_cheval')]
+    #[Route('/api/admin/create_cheval/{client_id}', name: 'create_cheval')]
     public function createCheval(Request $req, int $client_id): JsonResponse
     {
         $payload = $req -> getContent();
@@ -33,7 +33,7 @@ class ChevalController extends AbstractController
         );
     }
 
-    #[Route('/admin/update_cheval/{id}', name : 'update_cheval')]
+    #[Route('/api/admin/update_cheval/{id}', name : 'update_cheval')]
     public function updateCheval(Request $req, int $id) :JsonResponse 
     {
         $payload = $req -> getContent();

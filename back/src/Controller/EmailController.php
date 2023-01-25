@@ -28,7 +28,7 @@ class EmailController extends AbstractController
 
     }
 
-    #[Route('/get_contactsEmail', name:'get_contacts_email')]
+    #[Route('/api/get_contactsEmail', name:'get_contacts_email')]
     public function getContactsEmail()
     {  
         $response = $this -> es -> getContactsEmail();

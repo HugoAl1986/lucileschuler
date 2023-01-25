@@ -10,7 +10,7 @@ security:
         backend_users:
             memory:
                 users:
-                    admin: { password: '$2y$13$Oa1ifxfCupW/wL8S.1ACYez5XOcZxE3VO8lYxILY8dHnRYlVcjztS', roles: ['ROLE_ADMIN'] }
+                    lucile_admin: { password: '$2y$13$Oa1ifxfCupW/wL8S.1ACYez5XOcZxE3VO8lYxILY8dHnRYlVcjztS', roles: ['ROLE_ADMIN'] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,6 +23,10 @@ security:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure  
+                
+            login_throttling:
+                max_attempts: 5
+                interval: '5 minutes'
         api:
             pattern: ^/api
             stateless: true

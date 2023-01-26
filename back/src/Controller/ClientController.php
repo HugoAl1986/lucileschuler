@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Entity\Client;
 use App\Services\ClientService;
-use App\Security\AccessTokenHandler;
 use App\Utils\Serialization;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 

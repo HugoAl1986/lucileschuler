@@ -1,1 +1,107 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$my-pink-color : (
+    50 : #fff9fa,
+    100 : #fff1f3,
+    200 : #ffe8eb,
+    300 : #ffdfe2,
+    400 : #ffd8dc,
+    500 : #ffd1d6,
+    600 : #ffccd1,
+    700 : #ffc6cc,
+    800 : #ffc0c6,
+    900 : #ffb5bc,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$myGreenColor :  (
+    50 : #fafff9,
+    100 : #f3fff1,
+    200 : #ebffe8,
+    300 : #e2ffdf,
+    400 : #dcffd8,
+    500 : #d6ffd1,
+    600 : #d1ffcc,
+    700 : #ccffc6,
+    800 : #c6ffc0,
+    900 : #bcffb5,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Define color palette
+
+$my-primary: mat.define-palette($my-pink-color, 500);
+$my-accent: mat.define-palette($myGreenColor, 500);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+//define typo
+
+$my-typography: mat.define-typography-config(
+  $body-1:  mat.define-typography-level(
+    $font-family:'Roboto',
+    $font-weight:400,
+    $font-size: 14px,
+    $line-height: 1,
+    $letter-spacing: normal,
+  )
+);
+
+// Define theme
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ typography: $my-typography,
+));
+
+@include mat.all-component-themes($my-theme);
+@include mat.typography-hierarchy($my-theme);
+
+
+html, body { height: 100%; }
+body { 
+  @include mat.typography-level($my-typography, 'body-1')
+}
+

@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+@import "../../node_modules/bootstrap/scss/bootstrap-grid";
+@import './theme';
+
+@include mat.core();
+
+// apply to components
+@include mat.button-theme($my-theme);
+@include mat.card-theme($my-theme);
+@include mat.input-theme($my-theme);
+@include mat.form-field-theme($my-theme);
+@include mat.typography-hierarchy($my-theme);
+
+html, body {
+   height: 100%;
+}

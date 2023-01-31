@@ -1,0 +1,89 @@
+@use "@angular/material" as mat;
+@import '../../node_modules/@angular/material/theming';
+
+/* For use in src/lib/core/theming/_palette.scss */
+$my-purple-color: (
+    50 : #f2e8f6,
+    100 : #dfc5e9,
+    200 : #ca9fda,
+    300 : #b479cb,
+    400 : #a45cc0,
+    500 : #943fb5,
+    600 : #8c39ae,
+    700 : #8131a5,
+    800 : #77299d,
+    900 : #651b8d,
+    A100 : #e9c6ff,
+    A200 : #d693ff,
+    A400 : #c360ff,
+    A700 : #b947ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+$my-green-color: (
+    50 : #e8f6f2,
+    100 : #c5e9df,
+    200 : #9fdaca,
+    300 : #79cbb4,
+    400 : #5cc0a4,
+    500 : #3fb594,
+    600 : #39ae8c,
+    700 : #31a581,
+    800 : #299d77,
+    900 : #1b8d65,
+    A100 : #c6ffe9,
+    A200 : #93ffd6,
+    A400 : #60ffc3,
+    A700 : #47ffb9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+// Define color palette
+
+$my-primary: mat.define-palette($my-purple-color, 300);
+$my-accent: mat.define-palette($my-green-color, 500);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+//define typo
+
+$my-typography: mat.define-typography-config(
+  $body-1:  mat.define-typography-level(
+    $font-family:'Roboto',
+    $font-weight:400,
+    $font-size: 14px,
+    $line-height: 1,
+    $letter-spacing: normal,
+  )
+);
+

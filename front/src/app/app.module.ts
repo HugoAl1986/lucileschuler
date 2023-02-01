@@ -9,6 +9,7 @@ import { AccueilComponent } from './pages/accueil/accueil.component';
 import { MaterialModule } from './shared/material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormLoginComponent } from './components/form-login/form-login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormLoginComponent } from './components/form-login/form-login.component
     AppRoutingModule, 
     AdminModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

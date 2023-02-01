@@ -8,6 +8,4 @@ import { MatCardAppearance } from '@angular/material/card';
 })
 export class LoginComponent {
 
-  raised : MatCardAppearance = 'raised'
-
 }

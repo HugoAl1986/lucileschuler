@@ -1,0 +1,22 @@
+@use "sass:map";
+@use '@angular/material' as mat;
+@use '../../../styles/variables' as v;
+
+.my-custom-snack{
+    margin:0px !important;
+    div:first-child{
+        padding-right:0px !important;
+    }
+}
+.mdc-snackbar__surface{
+    background-color:map.get(v.$my-green-color,700) !important;
+}
+.cdk-global-overlay-wrapper{
+    position:relative !important;
+    top: 400px !important;
+    width:400px;
+    margin:0 auto;
+    div:first-child{
+        width:100%;
+    }
+}

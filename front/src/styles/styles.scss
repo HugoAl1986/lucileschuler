@@ -11,9 +11,49 @@
 @include mat.form-field-theme($my-theme);
 @include mat.icon-theme($my-theme);
 @include mat.snack-bar-theme($my-theme);
+@include mat.sidenav-theme($my-theme);
+@include mat.list-theme($my-theme);
 @include mat.typography-hierarchy($my-theme);
 
 
 html, body {
    height: 100%;
+   margin:0;
+}
+//Utils
+
+.debug-red{
+   border:solid 2px red;
+}
+
+.debug-green {
+   border:solid 2 px green;
+}
+.debug-blue{
+   border:solid 2px blue;
+}
+
+.debug-pink {
+   border:solid 2px pink;
+}
+
+p{
+   margin:0 !important;
+}
+
+a{
+   text-decoration:none;
+   color:inherit;
+}
+
+ul{
+   margin:0;
+   padding:0;
+}
+
+li{
+   list-style-type: none;
+}
+.text-center{
+   text-align:center;
 }

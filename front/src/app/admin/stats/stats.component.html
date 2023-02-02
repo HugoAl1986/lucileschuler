@@ -1,0 +1,17 @@
+
+<div class="container-stats" class="d-flex justify-content-between flex-wrap p-5">
+    <div class="dashboard mat-headline-6">Dashboard</div>
+    <mat-card *ngFor="let c of cardContent;let i = index" >
+        <mat-card-content class="d-flex justify-content-between flex-wrap ">
+            <div class="icon-container">
+                <fa-icon [icon]="c['icon']" style ="color:{{c['color']}};font-size:65px"></fa-icon>
+            </div> 
+            <div class="content">
+                <p> {{c['title']}}</p>
+                <p> {{c['content']}}</p>
+            </div>  
+        </mat-card-content>
+        <mat-card-footer class="p-2"> {{c['option']}}</mat-card-footer>
+    </mat-card>
+</div>
+

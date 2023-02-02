@@ -1,0 +1,41 @@
+@use '../../../styles/variables' as v;
+
+.container-stats{
+    width:100%;
+}
+.dashboard{
+    width:100%;
+    margin-bottom:30px;
+    font-weight:300;
+    
+}
+mat-card{
+    flex : 0 0 22%;
+    margin:0 5px;
+    border-radius:0;
+    height:100%;
+    mat-card-content{
+        gap:20px;
+        padding-top:20px;
+        padding-bottom:0px;
+        padding-left: 20px;
+        padding-right:20px;
+        .content{
+            p{
+                text-align:end;
+                padding:5px 0;
+            }
+            p:first-child{
+                color:#999;
+                font-size:12px;
+            }
+            p:last-child{
+                font-size: 25px
+            }
+
+        }          
+    }
+    mat-card-content:after{
+        @include v.like-hr(0);
+    }
+}

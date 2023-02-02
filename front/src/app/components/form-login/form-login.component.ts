@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Router, ActivatedRoute, ParamMap, Route } from '@angular/router';
+import { Router} from '@angular/router';
 import { interval } from 'rxjs'
 
 @Component({

@@ -75,15 +75,29 @@ $my-primary: mat.define-palette($my-purple-color, 300);
 $my-accent: mat.define-palette($my-green-color, 500);
 $my-warn: mat.define-palette(mat.$red-palette);
 
+// Other color
+
+$my-grey-color : #3c4858;
+
 //define typo
 
 $my-typography: mat.define-typography-config(
   $body-1:  mat.define-typography-level(
     $font-family:'Roboto',
-    $font-weight:400,
+    $font-weight:300,
     $font-size: 14px,
     $line-height: 1,
     $letter-spacing: normal,
   )
 );
+
+//mixin
+
+@mixin like-hr($margin-top){
+    content:"";
+    height:1px;
+    width:100%;
+    background-color:rgba(180,180,180,.3);
+    margin-top:$margin-top;
+}
 

@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { createEventId } from './event-utils';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalCreateEventCalendar } from '../modalCreateEventCalendar/modal-create-event-calendar.component';
+import { ModalCreateEventCalendar } from './modalCreateEventCalendar/modal-create-event-calendar.component';
 
 @Component({
   selector: 'app-calendar',
@@ -33,7 +33,14 @@ export class CalendarComponent implements OnInit {
       left: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-   
+    events :[
+      {
+        id:'1',
+        title : 'test2',
+        start: '2023-02-04T10:30:00',
+        end: '2023-02-04T16:30:00'
+      }
+    ],
     initialView: 'dayGridMonth',
     eventDisplay : 'list-item',
     initialEvents: '',
@@ -59,20 +66,20 @@ export class CalendarComponent implements OnInit {
     this.calendarOptions;
   }
 
-  openDialog() {
-    this.dialog.open(ModalCreateEventCalendar);
+  openDialog(selectInfo:DateSelectArg) {
+    this.dialog.open(ModalCreateEventCalendar,{
+      data: selectInfo
+    })
   }
-  
-
 
   handleDateSelect(selectInfo: DateSelectArg) {
     console.log(selectInfo);
-    this.openDialog();
+    this.openDialog(selectInfo);
     const calendarApi = selectInfo.view.calendar;
     
 
     calendarApi.unselect(); // clear date selection
-    
+    /*
       calendarApi.addEvent({
         id: createEventId(),
         title:'test',
@@ -80,7 +87,7 @@ export class CalendarComponent implements OnInit {
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
       });
-    
+    */
   }
 
   handleEventClick(clickInfo: EventClickArg) {

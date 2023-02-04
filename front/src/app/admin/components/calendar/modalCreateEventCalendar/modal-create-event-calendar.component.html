@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Evenement</h1>
+<div mat-dialog-content>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label></mat-label>
+      <input matInput [(ngModel)]="titre" name="titre" placeholder="entrer un titre">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click) = onClick(titre)>Valider</button>
+  <button mat-button mat-dialog-close>Fermer</button>
+</div>

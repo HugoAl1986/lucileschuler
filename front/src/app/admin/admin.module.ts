@@ -10,7 +10,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MaterialModule } from '../shared/material/material.module';
-import { ModalCreateEventCalendar } from './components/modalCreateEventCalendar/modal-create-event-calendar.component';
+import { ModalCreateEventCalendar } from './components/calendar/modalCreateEventCalendar/modal-create-event-calendar.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -31,7 +32,8 @@ import { ModalCreateEventCalendar } from './components/modalCreateEventCalendar/
     FontAwesomeModule,
     FullCalendarModule,
     LayoutModule,
-    MaterialModule
+    MaterialModule, 
+    FormsModule
   ]
 })
 export class AdminModule { }

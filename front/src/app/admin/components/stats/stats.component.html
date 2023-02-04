@@ -1,6 +1,6 @@
 
 <div class="container-stats" class="d-flex justify-content-between flex-wrap p-5">
-    <div class="dashboard mat-headline-6">Dashboard</div>
+    <h2 class="mat-h2 dashboard">Dashboard</h2>
     <mat-card *ngFor="let c of cardContent;let i = index" >
         <mat-card-content class="d-flex justify-content-between flex-wrap ">
             <div class="icon-container">
@@ -11,7 +11,10 @@
                 <p> {{c['content']}}</p>
             </div>  
         </mat-card-content>
-        <mat-card-footer class="p-2"> {{c['option']}}</mat-card-footer>
+        <mat-card-footer class="p-2 d-flex justify-content-end"> 
+            <fa-icon class="pe-2" [icon]="c['iconFooter']" style ="color:#999;font-size:15px"></fa-icon>
+            <span [style.fontSize.px]="12" [style.color]="'#999'" >{{c['option']}}</span>
+        </mat-card-footer>
     </mat-card>
 </div>
 

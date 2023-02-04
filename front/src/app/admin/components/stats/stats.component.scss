@@ -1,13 +1,11 @@
-@use '../../../styles/variables' as v;
+@use '../../../../styles/variables' as v;
 
 .container-stats{
     width:100%;
 }
 .dashboard{
     width:100%;
-    margin-bottom:30px;
-    font-weight:300;
-    
+    margin-bottom:30px; 
 }
 mat-card{
     flex : 0 0 22%;
@@ -30,7 +28,7 @@ mat-card{
                 font-size:12px;
             }
             p:last-child{
-                font-size: 25px
+                font-size: 30px
             }
 
         }          
@@ -38,4 +36,5 @@ mat-card{
     mat-card-content:after{
         @include v.like-hr(0);
     }
+   
 }

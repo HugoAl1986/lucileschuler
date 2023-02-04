@@ -7,10 +7,13 @@
         <li (click) = onClick(i) 
             *ngFor="let m of menu;let i = index" 
             class="d-flex flex-nowrap align-items-center" 
-            [style.backgroundColor] = "changeColor.includes(i) ? '#b479cb' : 'inherit'" 
-            [style.color] = "changeColor.includes(i) ? '#F5F1F0' : '#3c4858'">
+            [style.backgroundColor] = "changeColor.includes(i) ? bgColorOnClick : 'inherit'" 
+            [style.color] = "changeColor.includes(i) ? colorOnClick : 'inherit'"
+            #activeLi
+            (mouseenter)="onMouseEnter(activeLi)"
+            (mouseleave)="onMouseLeave(activeLi)">
             <mat-icon aria-hidden="false" fontIcon="{{m['icon']}}"></mat-icon>
-            <span  [style.color] = "changeColor.includes(i) ? '#F5F1F0' : '#3c4858'">{{ m['name']}}</span>
+            <span  [style.color] = "changeColor.includes(i) ? colorOnClick : 'inherit'">{{ m['name']}}</span>
         </li>
     </ul>
 </nav>

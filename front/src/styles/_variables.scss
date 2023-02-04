@@ -88,6 +88,13 @@ $my-typography: mat.define-typography-config(
     $font-size: 14px,
     $line-height: 1,
     $letter-spacing: normal,
+  ),
+  $headline-6:  mat.define-typography-level(
+    $font-family:'Roboto',
+    $font-weight:400,
+    $font-size: 20px,
+    $line-height: 1,
+    $letter-spacing: normal,
   )
 );
 
@@ -100,4 +107,16 @@ $my-typography: mat.define-typography-config(
     background-color:rgba(180,180,180,.3);
     margin-top:$margin-top;
 }
+
+// full-calendar
+
+:root {
+  --fc-button-bg-color: #b479cb;
+  --fc-border-color: #651b8d;
+  --fc-button-active-bg-color: #651b8d;
+  --fc-button-border-color : #651b8d;
+  --fc-button-hover-bg-color: #651b8d;
+  --fc-today-bg-color:#dfc5e9;
+}
+
 

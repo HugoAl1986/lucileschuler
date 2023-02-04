@@ -5,6 +5,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 const MATERIALS = [
@@ -13,7 +18,15 @@ const MATERIALS = [
   MatInputModule,
   MatFormFieldModule,
   MatIconModule,
-  MatSnackBarModule
+  MatSnackBarModule, 
+  MatDialogModule,
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule, 
+  MatSidenavModule,
+  MatListModule,
  
 ]
 

@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { StatsComponent } from './stats/stats.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { CoreComponent } from './core/core.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { StatsComponent } from './components/stats/stats.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ClientsComponent } from './components/clients/clients.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { MaterialModule } from '../shared/material/material.module';
+import { ModalCreateEventCalendar } from './components/modalCreateEventCalendar/modal-create-event-calendar.component';
+
+
 
 
 @NgModule({
@@ -21,20 +20,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DashboardComponent,
     StatsComponent,
     SidenavComponent,
-    CoreComponent
+    CalendarComponent,
+    ClientsComponent,
+    ModalCreateEventCalendar,
+  
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
+    FontAwesomeModule,
+    FullCalendarModule,
     LayoutModule,
-    MatSidenavModule,
-    MatListModule,
-    FontAwesomeModule
+    MaterialModule
   ]
 })
 export class AdminModule { }

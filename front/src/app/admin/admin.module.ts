@@ -11,7 +11,9 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MaterialModule } from '../shared/material/material.module';
 import { ModalCreateEventCalendar } from './components/calendar/modalCreateEventCalendar/modal-create-event-calendar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxMatTimepickerModule} from 'ngx-mat-timepicker'; 
+
 
 
 
@@ -23,8 +25,7 @@ import { FormsModule } from '@angular/forms';
     SidenavComponent,
     CalendarComponent,
     ClientsComponent,
-    ModalCreateEventCalendar,
-  
+    ModalCreateEventCalendar
   ],
   imports: [
     CommonModule,
@@ -33,7 +34,9 @@ import { FormsModule } from '@angular/forms';
     FullCalendarModule,
     LayoutModule,
     MaterialModule, 
-    FormsModule
+    FormsModule, 
+    ReactiveFormsModule,
+    NgxMatTimepickerModule.setLocale('fr-FR')
   ]
 })
 export class AdminModule { }

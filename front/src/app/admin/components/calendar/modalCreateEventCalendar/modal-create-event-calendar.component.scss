@@ -1,0 +1,85 @@
+@use "@angular/material" as mat;
+@import "../../../../../styles/variables";
+
+$input-width: 310px;
+$input-adresse-number: 150px;
+
+form {
+  gap: 10px;
+}
+
+div[mat-dialog-actions] {
+  width: 70%;
+  gap: 30px;
+}
+h5 {
+  color: mat.get-color-from-palette($my-accent, 500);
+  font-weight: 500;
+}
+
+div[mat-dialog-content] {
+  .container-info {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    h5 {
+      flex-basis: 100%;
+    }
+    .container-title {
+      flex-basis: 100%;
+      mat-form-field {
+        width: $input-width;
+      }
+    }
+    .container-hours {
+      gap: calc(100% - 2 * $input-width);
+      flex-basis: 100%;
+      mat-form-field {
+        flex-basis: $input-width;
+      }
+    }
+  }
+  .container-client {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    h5 {
+      width: 100%;
+    }
+    .container-info-client {
+      gap: calc(100% - 2 * $input-width);
+      display: flex;
+      flex-wrap: nowrap;
+      width: 100%;
+      mat-form-field {
+        flex-basis: $input-width;
+      }
+    }
+  }
+  .container-cheval {
+    mat-form-field {
+      width: $input-width;
+    }
+  }
+  .container-adresse {
+    .container-ecurie {
+      width: 100%;
+      mat-form-field {
+        width: $input-width;
+      }
+    }
+    .container-ecurie-adresse {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 10px;
+
+      .ecurie-number {
+        flex-basis: $input-adresse-number;
+      }
+      .ecurie-other {
+        flex-basis: calc(100% - $input-adresse-number - 10px);
+      }
+    }
+  }
+}

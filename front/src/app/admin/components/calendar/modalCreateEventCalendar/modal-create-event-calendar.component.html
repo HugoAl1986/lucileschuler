@@ -1,13 +1,147 @@
-<h1 mat-dialog-title>Evenement</h1>
-<div mat-dialog-content>
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label></mat-label>
-      <input matInput [(ngModel)]="titre" name="titre" placeholder="entrer un titre">
-    </mat-form-field>
-  </form>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click) = onClick(titre)>Valider</button>
-  <button mat-button mat-dialog-close>Fermer</button>
-</div>
+<h1 class="text-center" mat-dialog-title>Intervention</h1>
+<form
+  [formGroup]="eventForm"
+  (ngSubmit)="onSubmit()"
+  class="d-flex justify-content-center flex-wrap"
+>
+  <div
+    mat-dialog-content
+    class="d-flex flex-row justify-content-start flex-wrap"
+  >
+    <div class="container-info">
+      <h5>Informations</h5>
+      <div class="container-title">
+        <mat-form-field appearance="outline">
+          <mat-label>Titre</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+      </div>
+      <div class="container-hours d-flex flex-nowrap">
+        <mat-form-field appearance="outline">
+          <mat-label>Heure de début</mat-label>
+          <input
+            matInput
+            name="startTime"
+            formControlName="startTime"
+            [format]="format"
+            [ngxMatTimepicker]="pickerStart"
+            readonly
+          />
+          <mat-icon matSuffix (click)="pickerStart.open()"
+            >watch_later</mat-icon
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Heure de fin</mat-label>
+          <input
+            matInput
+            name="endTime"
+            formControlName="endTime"
+            [format]="format"
+            [ngxMatTimepicker]="pickerEnd"
+            readonly
+          />
+          <mat-icon matSuffix (click)="pickerEnd.open()">watch_later</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container-client">
+      <h5>Client</h5>
+      <div class="container-info-client">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom</mat-label>
+          <mat-select formControlName="nomClient">
+            <mat-option
+              value="{{ client['nom'] }} {{ client['prenom'] }}"
+              (click)="onSelected(i)"
+              *ngFor="let client of clients; index as i"
+              >{{ client["nom"] }} {{ client["prenom"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container-cheval">
+      <h5>Cheval</h5>
+      <div class="container-info-client">
+        <mat-form-field appearance="outline">
+          <mat-label>cheval</mat-label>
+          <mat-select formControlName="cheval">
+            <mat-option [value]="selectedClient['cheval']">{{
+              selectedClient["cheval"]
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container-adresse">
+      <h5>Adresse intervention</h5>
+      <div class="container-ecurie">
+        <mat-form-field appearance="outline">
+          <mat-label>Nom écurie</mat-label>
+          <mat-select>
+            <mat-option
+              value="{{
+                selectedClient['ecurie']
+                  ? selectedClient['ecurie']
+                  : 'Nom écurie'
+              }}"
+              >{{ selectedClient["ecurie"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="container-ecurie-adresse">
+        <mat-form-field class="ecurie-number" appearance="outline">
+          <mat-label>Numéro rue</mat-label>
+          <mat-select>
+            <mat-option
+              value="selectedClient['rue'] ? selectedClient['rue'] : 'Rue'"
+              >{{ selectedClient["rue"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="ecurie-other" appearance="outline">
+          <mat-label>Nom rue</mat-label>
+          <mat-select>
+            <mat-option
+              value="selectedClient['nomRue'] ? selectedClient['nomRue'] : 'Nom rue'"
+              >{{ selectedClient["nomRue"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ecurie-number">
+          <mat-label>Code Postal</mat-label>
+          <mat-select>
+            <mat-option
+              value="selectedClient['codePostal'] ? selectedClient['codePostal'] : 'Code Postal'"
+              >{{ selectedClient["codePostal"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ecurie-other">
+          <mat-label>Ville</mat-label>
+          <mat-select>
+            <mat-option
+              value="selectedClient['ville'] ? selectedClient['ville'] : 'Ville'"
+              >{{ selectedClient["ville"] }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-between">
+    <button mat-raised-button color="primary" mat-dialog-close>Fermer</button>
+    <button
+      type="submit"
+      [disabled]="!eventForm.valid"
+      mat-raised-button
+      color="primary"
+    >
+      Valider
+    </button>
+  </div>
+</form>
+<ngx-mat-timepicker #pickerStart></ngx-mat-timepicker>
+<ngx-mat-timepicker #pickerEnd></ngx-mat-timepicker>

@@ -6,16 +6,8 @@
 @include mat.core();
 
 // apply to components
-@include mat.button-theme($my-theme);
-@include mat.card-theme($my-theme);
-@include mat.input-theme($my-theme);
-@include mat.form-field-theme($my-theme);
-@include mat.icon-theme($my-theme);
-@include mat.snack-bar-theme($my-theme);
-@include mat.sidenav-theme($my-theme);
-@include mat.list-theme($my-theme);
+@include mat.all-component-themes($my-theme);  
 @include mat.typography-hierarchy($my-theme);
-
 
 html, body {
    height: 100%;

@@ -1,10 +1,8 @@
-import { Component, ViewEncapsulation, ChangeDetectorRef, OnInit, HostListener } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectorRef, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import { createEventId } from './event-utils';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateEventCalendar } from './modalCreateEventCalendar/modal-create-event-calendar.component';
 
@@ -26,21 +24,24 @@ export class CalendarComponent implements OnInit {
     plugins: [
       interactionPlugin,
       dayGridPlugin,
-      timeGridPlugin,
-      listPlugin  
+      timeGridPlugin 
     ],
     headerToolbar: {
-      left: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      left: 'prev,next today',
+      center:'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay'
     },
     events :[
       {
-        id:'1',
         title : 'test2',
         start: '2023-02-04T10:30:00',
-        end: '2023-02-04T16:30:00'
+        end: '2023-02-04T16:30:00',
+        description : "une petite description"
       }
     ],
+    eventDidMount : (info) => {
+      console.log(info.event.extendedProps);
+    },
     initialView: 'dayGridMonth',
     eventDisplay : 'list-item',
     initialEvents: '',
@@ -49,6 +50,9 @@ export class CalendarComponent implements OnInit {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    allDaySlot: false,
+    slotMinTime:'07:00',
+    slotMaxTime:'23:00',
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
@@ -68,29 +72,19 @@ export class CalendarComponent implements OnInit {
 
   openDialog(selectInfo:DateSelectArg) {
     this.dialog.open(ModalCreateEventCalendar,{
+      width: '700px',
       data: selectInfo
     })
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    console.log(selectInfo);
     this.openDialog(selectInfo);
     const calendarApi = selectInfo.view.calendar;
-    
-
     calendarApi.unselect(); // clear date selection
-    /*
-      calendarApi.addEvent({
-        id: createEventId(),
-        title:'test',
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      });
-    */
   }
 
   handleEventClick(clickInfo: EventClickArg) {
+    console.log(clickInfo.event.extendedProps);
     if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
       clickInfo.event.remove();
     }

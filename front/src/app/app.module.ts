@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     BrowserAnimationsModule,
     ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

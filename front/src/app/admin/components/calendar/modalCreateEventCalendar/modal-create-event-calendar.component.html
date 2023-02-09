@@ -46,88 +46,94 @@
       </div>
     </div>
     <div class="container-client">
-      <h5>Client</h5>
-      <div class="container-info-client">
+      <div class="container-client-nom">
+        <h5>Client</h5>
         <mat-form-field appearance="outline">
           <mat-label>Nom</mat-label>
-          <mat-select formControlName="nomClient">
+          <mat-select
+            formControlName="nomClient"
+            (selectionChange)="onSelected($event)"
+          >
             <mat-option
-              value="{{ client['nom'] }} {{ client['prenom'] }}"
-              (click)="onSelected(i)"
               *ngFor="let client of clients; index as i"
+              [value]="client"
               >{{ client["nom"] }} {{ client["prenom"] }}</mat-option
             >
           </mat-select>
         </mat-form-field>
       </div>
-    </div>
-    <div class="container-cheval">
-      <h5>Cheval</h5>
-      <div class="container-info-client">
-        <mat-form-field appearance="outline">
-          <mat-label>cheval</mat-label>
-          <mat-select formControlName="cheval">
-            <mat-option [value]="selectedClient['cheval']">{{
-              selectedClient["cheval"]
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="container-adresse">
-      <h5>Adresse intervention</h5>
-      <div class="container-ecurie">
-        <mat-form-field appearance="outline">
-          <mat-label>Nom écurie</mat-label>
-          <mat-select>
-            <mat-option
-              value="{{
-                selectedClient['ecurie']
-                  ? selectedClient['ecurie']
-                  : 'Nom écurie'
-              }}"
-              >{{ selectedClient["ecurie"] }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="container-ecurie-adresse">
-        <mat-form-field class="ecurie-number" appearance="outline">
-          <mat-label>Numéro rue</mat-label>
-          <mat-select>
-            <mat-option
-              value="selectedClient['rue'] ? selectedClient['rue'] : 'Rue'"
-              >{{ selectedClient["rue"] }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="ecurie-other" appearance="outline">
-          <mat-label>Nom rue</mat-label>
-          <mat-select>
-            <mat-option
-              value="selectedClient['nomRue'] ? selectedClient['nomRue'] : 'Nom rue'"
-              >{{ selectedClient["nomRue"] }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="ecurie-number">
-          <mat-label>Code Postal</mat-label>
-          <mat-select>
-            <mat-option
-              value="selectedClient['codePostal'] ? selectedClient['codePostal'] : 'Code Postal'"
-              >{{ selectedClient["codePostal"] }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="ecurie-other">
-          <mat-label>Ville</mat-label>
-          <mat-select>
-            <mat-option
-              value="selectedClient['ville'] ? selectedClient['ville'] : 'Ville'"
-              >{{ selectedClient["ville"] }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
+      <div formArrayName="otherFields" *ngIf="selectedClient !== undefined">
+        <div
+          *ngFor="
+            let field of eventForm.controls['otherFields']['value'];
+            index as i
+          "
+        >
+          <div class="container-cheval">
+            <h5>Cheval</h5>
+            <mat-form-field appearance="outline">
+              <mat-label>cheval</mat-label>
+              <mat-select
+                (selectionChange)="onClick($event)"
+                [value]="choosenCheval"
+              >
+                <mat-option
+                  [value]="cheval"
+                  *ngFor="let cheval of selectedClient['cheval']; index as i"
+                  >{{ cheval }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="container-adresse">
+            <h5>Adresse intervention</h5>
+            <div class="container-ecurie">
+              <mat-form-field appearance="outline">
+                <mat-label>Nom écurie</mat-label>
+                <mat-select [value]="selectedClient['ecurie']">
+                  <mat-option [value]="selectedClient['ecurie']">{{
+                    selectedClient["ecurie"]
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="container-ecurie-adresse">
+              <mat-form-field class="ecurie-number" appearance="outline">
+                <mat-label>Numéro rue</mat-label>
+                <mat-select [value]="selectedClient['rue']">
+                  <mat-option [value]="selectedClient['rue']">{{
+                    selectedClient["rue"]
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="ecurie-other" appearance="outline">
+                <mat-label>Nom rue</mat-label>
+                <mat-select [value]="selectedClient['nomRue']">
+                  <mat-option [value]="selectedClient['nomRue']">{{
+                    selectedClient["nomRue"]
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="ecurie-number">
+                <mat-label>Code Postal</mat-label>
+                <mat-select [value]="selectedClient['codePostal']">
+                  <mat-option value="selectedClient['codePostal']">{{
+                    selectedClient["codePostal"]
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="ecurie-other">
+                <mat-label>Ville</mat-label>
+                <mat-select [value]="selectedClient['ville']">
+                  <mat-option value="selectedClient['ville']">{{
+                    selectedClient["ville"]
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

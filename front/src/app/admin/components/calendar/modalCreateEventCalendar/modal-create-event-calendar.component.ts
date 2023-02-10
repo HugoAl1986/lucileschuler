@@ -9,7 +9,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { MatSelectChange } from '@angular/material/select';
-import { BehaviorSubject } from 'rxjs';
+import { clients } from './datasClients.mock';
 
 @Component({
   selector: 'modal-create-event-calendar',
@@ -17,31 +17,10 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./modal-create-event-calendar.component.scss'],
 })
 export class ModalCreateEventCalendar implements OnInit {
-  clients: Array<Object> = [
-    {
-      nom: 'Schuler',
-      prenom: 'Lucile',
-      ecurie: 'Les écuries de Drumal',
-      rue: 48,
-      nomRue: 'rue du mesnil',
-      codePostal: 60119,
-      ville: 'Henonville',
-      cheval: ['lenka', 'polux'],
-    },
-    {
-      nom: 'Schuler',
-      prenom: 'Roland',
-      ecurie: 'Les écuries de Roland',
-      rue: 25,
-      nomRue: 'rue des veaux',
-      codePostal: 95130,
-      ville: 'Franconville',
-      cheval: ['Tuno'],
-    },
-  ];
-
+  clients: Array<Object> = clients;
   selectedClient;
   choosenCheval: any;
+
   eventForm = this.fb.group({
     title: new FormControl('', Validators.required),
     startTime: new FormControl('', Validators.required),
@@ -60,6 +39,7 @@ export class ModalCreateEventCalendar implements OnInit {
   });
 
   format: number = 24;
+  public filteredClients = this.clients.slice();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public datasEvent: DateSelectArg,
@@ -79,7 +59,12 @@ export class ModalCreateEventCalendar implements OnInit {
         this.datasEvent.startStr + 'T' + this.eventForm.value.startTime + ':00',
       end:
         this.datasEvent.startStr + 'T' + this.eventForm.value.endTime + ':00',
-      test: 'test',
+      cheval: this.eventForm.value['otherFields'][0]['cheval'],
+      ecurie: this.eventForm.value['otherFields'][0]['ecurie'],
+      rue: this.eventForm.value['otherFields'][0]['rue'],
+      nomRue: this.eventForm.value['otherFields'][0]['nomRue'],
+      codePostal: this.eventForm.value['otherFields'][0]['codePostal'],
+      ville: this.eventForm.value['otherFields'][0]['ville'],
     });
   }
 
@@ -99,14 +84,14 @@ export class ModalCreateEventCalendar implements OnInit {
         cheval: this.choosenCheval,
       },
     ]);
-    console.log(this.selectedClient)
+    console.log(this.selectedClient);
   }
 
   ngOnInit(): void {
     console.log(this.otherFields.controls[0]['value']);
   }
-  onClick(event: MatSelectChange) {
-    console.log(event);
+
+  onClickCheval(event: MatSelectChange) {
     this.choosenCheval = event.value;
     this.eventForm.controls['otherFields'].patchValue([
       {

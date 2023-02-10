@@ -54,8 +54,13 @@
             formControlName="nomClient"
             (selectionChange)="onSelected($event)"
           >
+            <mat-select-filter
+              [array]="clients"
+              [displayMember]="'nom'"
+              (filteredReturn)="filteredClients = $event"
+            ></mat-select-filter>
             <mat-option
-              *ngFor="let client of clients; index as i"
+              *ngFor="let client of filteredClients; index as i"
               [value]="client"
               >{{ client["nom"] }} {{ client["prenom"] }}</mat-option
             >
@@ -74,7 +79,7 @@
             <mat-form-field appearance="outline">
               <mat-label>cheval</mat-label>
               <mat-select
-                (selectionChange)="onClick($event)"
+                (selectionChange)="onClickCheval($event)"
                 [value]="choosenCheval"
               >
                 <mat-option
@@ -144,6 +149,7 @@
       [disabled]="!eventForm.valid"
       mat-raised-button
       color="primary"
+      mat-dialog-close
     >
       Valider
     </button>

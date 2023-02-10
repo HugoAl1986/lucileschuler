@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateEventCalendar } from './modalCreateEventCalendar/modal-create-event-calendar.component';
+import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/modal-edit-event-calendar.component';
 
 @Component({
   selector: 'app-calendar',
@@ -39,8 +40,10 @@ export class CalendarComponent implements OnInit {
         description : "une petite description"
       }
     ],
-    eventDidMount : (info) => {
-      console.log(info.event.extendedProps);
+    buttonText : {
+      day: 'Aujourd\'hui',
+      month:"Mois",
+      week : "Semaine"
     },
     initialView: 'dayGridMonth',
     eventDisplay : 'list-item',
@@ -70,24 +73,29 @@ export class CalendarComponent implements OnInit {
     this.calendarOptions;
   }
 
-  openDialog(selectInfo:DateSelectArg) {
+  openDialogCreateEvent(selectInfo:DateSelectArg) {
     this.dialog.open(ModalCreateEventCalendar,{
       width: '700px',
       data: selectInfo
     })
   }
 
+  openDialogEditEvent(clickInfo:EventClickArg) {
+    this.dialog.open(ModalEditEventCalendarComponent,{
+      data: clickInfo
+    })
+  }
+
   handleDateSelect(selectInfo: DateSelectArg) {
-    this.openDialog(selectInfo);
+    this.openDialogCreateEvent(selectInfo);
     const calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    console.log(clickInfo.event.extendedProps);
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.openDialogEditEvent(clickInfo);
+     // clickInfo.event.remove();
+    
   }
 
   handleEvents(events: EventApi[]) {

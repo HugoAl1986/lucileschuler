@@ -5,7 +5,7 @@ import {
   FormArray,
   FormBuilder,
 } from '@angular/forms';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { MatSelectChange } from '@angular/material/select';
@@ -16,7 +16,7 @@ import { clients } from './datasClients.mock';
   templateUrl: './modal-create-event-calendar.component.html',
   styleUrls: ['./modal-create-event-calendar.component.scss'],
 })
-export class ModalCreateEventCalendar implements OnInit {
+export class ModalCreateEventCalendar {
   clients: Array<Object> = clients;
   selectedClient;
   choosenCheval: any;
@@ -51,7 +51,6 @@ export class ModalCreateEventCalendar implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.eventForm.controls['otherFields'].value);
     const calendarApi = this.datasEvent.view.calendar;
     calendarApi.addEvent({
       title: this.eventForm.value.title,
@@ -65,6 +64,8 @@ export class ModalCreateEventCalendar implements OnInit {
       nomRue: this.eventForm.value['otherFields'][0]['nomRue'],
       codePostal: this.eventForm.value['otherFields'][0]['codePostal'],
       ville: this.eventForm.value['otherFields'][0]['ville'],
+      nom : this.eventForm.value['nomClient']['nom'],
+      prenom : this.eventForm.value['nomClient']['prenom'],
     });
   }
 
@@ -76,7 +77,7 @@ export class ModalCreateEventCalendar implements OnInit {
       nomRue: event.value['nomRue'],
       codePostal: event.value['codePostal'],
       ville: event.value['ville'],
-      cheval: event.value['cheval'],
+      cheval: event.value['cheval']
     };
     this.eventForm.controls['otherFields'].setValue([this.selectedClient]);
     this.eventForm.controls['otherFields'].patchValue([
@@ -84,11 +85,6 @@ export class ModalCreateEventCalendar implements OnInit {
         cheval: this.choosenCheval,
       },
     ]);
-    console.log(this.selectedClient);
-  }
-
-  ngOnInit(): void {
-    console.log(this.otherFields.controls[0]['value']);
   }
 
   onClickCheval(event: MatSelectChange) {

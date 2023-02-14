@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { Router} from '@angular/router';
 import { interval } from 'rxjs'
@@ -8,7 +9,6 @@ import { interval } from 'rxjs'
   selector: 'app-form-login',
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class FormLoginComponent {
 
@@ -21,7 +21,7 @@ export class FormLoginComponent {
   hide : boolean = true;
 
   loginForm = new FormGroup({
-    username: new FormControl('',Validators.required),
+    username: new FormControl('' as ThemePalette,Validators.required),
     password: new FormControl('', Validators.required),
   });
 

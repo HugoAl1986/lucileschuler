@@ -6,6 +6,7 @@
 @include mat.core();
 
 // apply to components
+
 @include mat.all-component-themes($my-theme);  
 @include mat.typography-hierarchy($my-theme);
 

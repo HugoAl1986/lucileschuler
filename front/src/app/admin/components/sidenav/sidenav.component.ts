@@ -19,10 +19,10 @@ colorOnClick : string = "#F5F1F0"
 
 
   menu : Object[] = [
-    { name:"Calendrier", icon:"calendar_month"},
-    { name:"Contacts", icon:"mail"},
-    { name:"Clients", icon:"account_circle"},
-    { name:"Intervention", icon:"business_center"}
+    { name:"Calendrier", icon:"calendar_month", path:"calendrier"},
+    { name:"Contacts", icon:"mail", path:"contacts"},
+    { name:"Clients", icon:"account_circle", path:"clients"},
+    { name:"Interventions", icon:"business_center", path:"interventions"}
   ]
 
   constructor(private utilsService:UtilsService){
@@ -42,7 +42,6 @@ colorOnClick : string = "#F5F1F0"
       
   onClick(i:number) : void{
    this.changeColor.splice(0,1,i);
-   this.utilsService.displayComponent.next({name:this.menu[i]['name'], display:true});
   }
   
 

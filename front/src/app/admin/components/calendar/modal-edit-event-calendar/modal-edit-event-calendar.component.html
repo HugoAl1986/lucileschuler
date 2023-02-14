@@ -1,1 +1,16 @@
-<p>modal-edit-event-calendar works!</p>
+<h1 mat-dialog-title class="d-flex justify-content-center align-items-center m-0">{{datasFromCalendar.title | titlecase}}</h1>
+<div mat-dialog-content class="d-flex justify-content-center">
+ Que veux tu faire ?
+</div>
+<div mat-dialog-actions class="flex justify-content-center">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      mat-dialog-close
+      (click)="openWatchEventModal()"
+    >
+      Consulter
+    </button>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial (click)="deleteEvent()" color="warn">Supprimer</button>
+</div>

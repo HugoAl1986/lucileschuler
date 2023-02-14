@@ -13,4 +13,14 @@ export class UtilsService {
     display:true
   });
 
+
+  formatDate(date:Date){
+    const day = date.toLocaleDateString();
+    const hours = date.toLocaleTimeString([],{timeStyle: 'short'})
+    return {
+      date : day,
+      hours : hours
+    }
+  } 
+
 }

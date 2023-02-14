@@ -1,0 +1,15 @@
+div[mat-dialog-content] p{
+    display:flex;
+    justify-content: left;
+    gap:20px;
+    padding-bottom:20px;
+    align-items:center;
+    fa-icon{
+        font-size:30px;
+        width:35px;
+        text-align:center;
+    }
+}
+div[mat-dialog-content] p:last-of-type{
+    padding-bottom:0;
+}

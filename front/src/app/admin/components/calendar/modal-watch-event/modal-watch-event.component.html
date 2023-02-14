@@ -1,0 +1,15 @@
+<h1
+  mat-dialog-title
+  class="d-flex justify-content-center m-0 align-items-center"
+>
+  {{ datasEvent.title | titlecase }}
+</h1>
+<div mat-dialog-content>
+  <p *ngFor="let data of datasDisplay;index as i" class="mat-body-2">
+    <fa-icon [icon]="data['icon']" style ="color:#39ae8c"></fa-icon>
+    {{data['text']}}
+  </p> 
+</div>
+<div mat-dialog-actions class="d-flex justify-content-center pb-4 pt-0">
+  <button mat-raised-button mat-dialog-close color="primary">Fermer</button>
+</div>

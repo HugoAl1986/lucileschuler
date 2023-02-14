@@ -1,10 +1,20 @@
-import { Component, ViewEncapsulation, ChangeDetectorRef, OnInit } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectorRef,
+  OnInit,
+} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import {
+  CalendarOptions,
+  DateSelectArg,
+  EventClickArg,
+  EventApi,
+} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalCreateEventCalendar } from './modalCreateEventCalendar/modal-create-event-calendar.component';
+import { ModalCreateEventCalendar } from './modal-create-event-calendar/modal-create-event-calendar.component';
 import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/modal-edit-event-calendar.component';
 
 @Component({
@@ -14,39 +24,42 @@ import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/mod
   encapsulation: ViewEncapsulation.None,
 })
 export class CalendarComponent implements OnInit {
-
-  constructor(private changeDetector: ChangeDetectorRef, public dialog: MatDialog) {
-  }
-
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {}
 
   calendarVisible = true;
   calendarOptions: CalendarOptions = {
-    locales: [ { code: 'fr' }],
-    plugins: [
-      interactionPlugin,
-      dayGridPlugin,
-      timeGridPlugin 
-    ],
+    locales: [{ code: 'fr' }],
+    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
     headerToolbar: {
       left: 'prev,next today',
-      center:'title',
-      right: 'dayGridMonth,dayGridWeek,dayGridDay'
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay',
     },
-    events :[
+    events: [
       {
-        title : 'test2',
+        title: 'R.Bardet',
         start: '2023-02-04T10:30:00',
         end: '2023-02-04T16:30:00',
-        description : "une petite description"
-      }
+        nom: 'Bardet',
+        prenom: 'Romain',
+        cheval : 'Pinot',
+        ecurie : 'les ecuries de Romain',
+        nomRue: 'rue du mesnil',
+        rue: 48,
+        ville : 'Brioude',
+        codePostal : '73200'
+      },
     ],
-    buttonText : {
-      day: 'Aujourd\'hui',
-      month:"Mois",
-      week : "Semaine"
+    buttonText: {
+      day: "Aujourd'hui",
+      month: 'Mois',
+      week: 'Semaine',
     },
     initialView: 'dayGridMonth',
-    eventDisplay : 'list-item',
+    eventDisplay: 'list-item',
     initialEvents: '',
     weekends: true,
     editable: true,
@@ -54,12 +67,12 @@ export class CalendarComponent implements OnInit {
     selectMirror: true,
     dayMaxEvents: true,
     allDaySlot: false,
-    slotMinTime:'07:00',
-    slotMaxTime:'23:00',
+    slotMinTime: '07:00',
+    slotMaxTime: '23:00',
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    
+
     /* you can update a remote database when these fire:
     eventAdd:
     eventChange:
@@ -68,22 +81,22 @@ export class CalendarComponent implements OnInit {
   };
   currentEvents: EventApi[] = [];
 
-  
   ngOnInit(): void {
     this.calendarOptions;
   }
 
-  openDialogCreateEvent(selectInfo:DateSelectArg) {
-    this.dialog.open(ModalCreateEventCalendar,{
+  openDialogCreateEvent(selectInfo: DateSelectArg) {
+    this.dialog.open(ModalCreateEventCalendar, {
       width: '700px',
-      data: selectInfo
-    })
+      data: selectInfo,
+    });
   }
 
-  openDialogEditEvent(clickInfo:EventClickArg) {
-    this.dialog.open(ModalEditEventCalendarComponent,{
-      data: clickInfo
-    })
+  openDialogEditEvent(clickInfo: EventClickArg) {
+    this.dialog.open(ModalEditEventCalendarComponent, {
+      width: '400px',
+      data: clickInfo,
+    });
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
@@ -94,8 +107,7 @@ export class CalendarComponent implements OnInit {
 
   handleEventClick(clickInfo: EventClickArg) {
     this.openDialogEditEvent(clickInfo);
-     // clickInfo.event.remove();
-    
+    // clickInfo.event.remove();
   }
 
   handleEvents(events: EventApi[]) {
@@ -103,5 +115,3 @@ export class CalendarComponent implements OnInit {
     this.changeDetector.detectChanges();
   }
 }
-
-

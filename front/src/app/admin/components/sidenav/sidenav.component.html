@@ -1,20 +1,37 @@
 <nav class="p-3">
-    <div id="logo" class="text-center p-2 d-flex justify-content-between flex-wrap">
-        <fa-icon [icon]="faHorseHead" style ="color:#39ae8c;font-size:35px"></fa-icon>
-        <span>LUCILE SHIATSU</span>
-    </div>
-    <ul class="d-flex flex-column justify-content-center flex-wrap pt-3">
-        <li (click) = onClick(i) 
-            *ngFor="let m of menu;let i = index" 
-            class="d-flex flex-nowrap align-items-center" 
-            [style.backgroundColor] = "changeColor.includes(i) ? bgColorOnClick : 'inherit'" 
-            [style.color] = "changeColor.includes(i) ? colorOnClick : 'inherit'"
-            #activeLi
-            (mouseenter)="onMouseEnter(activeLi)"
-            (mouseleave)="onMouseLeave(activeLi)">
-            <mat-icon aria-hidden="false" fontIcon="{{m['icon']}}"></mat-icon>
-            <span  [style.color] = "changeColor.includes(i) ? colorOnClick : 'inherit'">{{ m['name']}}</span>
-        </li>
-    </ul>
+  <div
+    id="logo"
+    class="text-center p-2 d-flex justify-content-between flex-wrap"
+  >
+    <fa-icon
+      [icon]="faHorseHead"
+      style="color: #39ae8c; font-size: 35px"
+    ></fa-icon>
+    <span>LUCILE SHIATSU</span>
+  </div>
+  <ul class="d-flex flex-column justify-content-center flex-wrap pt-3">
+    <li
+      (click)="onClick(i)"
+      *ngFor="let m of menu; let i = index"
+      class="d-flex flex-nowrap align-items-center"
+      [style.backgroundColor]="
+        changeColor.includes(i) ? bgColorOnClick : 'inherit'
+      "
+      [style.color]="changeColor.includes(i) ? colorOnClick : 'inherit'"
+      #activeLi
+      (mouseenter)="onMouseEnter(activeLi)"
+      (mouseleave)="onMouseLeave(activeLi)"
+    >
+      <a
+        class="d-flex flex-row align-items-center justify-content-center flex-nowrap"
+        [routerLink]="m['path']"
+      >
+        <mat-icon aria-hidden="false" fontIcon="{{ m['icon'] }}"></mat-icon>
+        <span
+          [style.color]="changeColor.includes(i) ? colorOnClick : 'inherit'"
+          >{{ m["name"] }}</span
+        >
+      </a>
+    </li>
+  </ul>
 </nav>
-<div><div></div></div>

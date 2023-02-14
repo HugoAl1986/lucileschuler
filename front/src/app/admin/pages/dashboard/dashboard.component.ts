@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UtilsService } from '../../utils.service';
 
 @Component({
@@ -6,19 +7,12 @@ import { UtilsService } from '../../utils.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit{
 
-  displayComponent:Object;
-
-  constructor(private utilsService:UtilsService){}
+  constructor(private router:Router){}
 
   ngOnInit(): void {
-      this.utilsService.displayComponent.subscribe((value) => {
-        this.displayComponent = value;
-        console.log(value)
-      });
-    
-      console.log(this.displayComponent);
+      this.router.navigate(["/admin/dashboard/calendrier"]);
   }
 
 }

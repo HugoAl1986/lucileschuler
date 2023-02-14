@@ -1,6 +1,6 @@
 @use "sass:map";
 @use '@angular/material' as mat;
-@use '../../../styles/variables' as v;
+@use '../../../../styles/variables' as v;
 
 
 .container{
@@ -11,8 +11,8 @@
 }
 .my-card-header-title{
     color: map.get(v.$my-purple-color,300)
-}
+} 
 .my-card-shadow{
-    @include mat.elevation(5, mat.get-color-from-palette(v.$my-primary, 300, 0.8));
+    @include mat.elevation(7, mat.get-color-from-palette(v.$my-primary, 300, 0.8));
    }
 

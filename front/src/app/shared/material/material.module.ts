@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const MATERIALS = [
   MatButtonModule,
@@ -28,6 +29,7 @@ const MATERIALS = [
   MatSidenavModule,
   MatListModule,
   MatSelectModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({

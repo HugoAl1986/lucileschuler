@@ -20,7 +20,10 @@
             </mat-error>
         -->
     </mat-card-content>
-    <mat-card-footer class="d-flex justify-content-center pt-2 pb-4"> 
+    <mat-card-footer class="d-flex justify-content-center align-items-center pt-2 pb-4"> 
         <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Loggin</button>
+        <mat-spinner *ngIf="displaySpinner" color="accent" diameter=20></mat-spinner>
     </mat-card-footer>
+    <mat-error *ngIf = "errorLoggin" class="d-flex justify-content-center align-items-center p-4 pt-0 mat-body-2"> Identifiants incorrects !</mat-error>
   </form>
+  

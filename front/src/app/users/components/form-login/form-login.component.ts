@@ -1,42 +1,70 @@
-import { Component} from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { Router} from '@angular/router';
-import { interval } from 'rxjs'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
+import { GlobalService } from 'src/app/shared/services/global.service';
+import { HttpService } from 'src/app/shared/services/http.service';
+import { User } from 'src/app/user.interface';
 
 @Component({
   selector: 'app-form-login',
   templateUrl: './form-login.component.html',
   styleUrls: ['./form-login.component.scss'],
 })
-export class FormLoginComponent {
+export class FormLoginComponent implements OnDestroy {
+  public constructor(
+    private snackBar:MatSnackBar,
+    private globalService:GlobalService,
+    private router: Router,
+    private httpService: HttpService
+  ) {}
 
-  public constructor(private snackBar: MatSnackBar, private router:Router ){
-    
-  }
-
-  interval = interval(3000);
-  durationInSeconds : number = 3;
-  hide : boolean = true;
+  interval = interval(1000);
+  subscriptionInterval: Subscription;
+  subscriptionServiceLogin:Subscription;
+  hide: boolean = true;
+  user: User = {
+    username : '',
+    password : ''
+  };
+  token: string;
+  displaySpinner:boolean = false;
+  errorLoggin:boolean = false;
 
   loginForm = new FormGroup({
-    username: new FormControl('' as ThemePalette,Validators.required),
+    username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
 
-  onSubmit():void {
-    if(this.loginForm.status == 'VALID'){
-      this.snackBar.open("Authentification réussie !!", '', {
-        duration:250000,
-        verticalPosition : 'top', 
-        panelClass : ['d-flex', 'justify-content-center', 'my-custom-snack']
-      });
-      this.interval.subscribe(() => {
-        this.snackBar.ngOnDestroy();
-        this.router.navigate(["/admin/dashboard"]);
-      });
+  onSubmit(): void {
+    if (this.loginForm.status == 'VALID') {
+      this.user.username = this.loginForm.value['username'];
+      this.user.password = this.loginForm.value['password'];
+      this.displaySpinner = true;
+      this.subscriptionServiceLogin = this.httpService
+        .loggin(this.user)
+        .subscribe({
+          next: (data: string) => {
+            this.displaySpinner = false;
+            this.httpService.token = data;
+            this.globalService.authSnackbarOpen(this.snackBar);
+            this.subscriptionInterval = this.interval.subscribe(() => {
+              this.router.navigate(['/admin/dashboard']);
+            });
+          },
+          error: (error) => {
+            this.errorLoggin = true;
+            this.displaySpinner = false;
+          }
+        });
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscriptionInterval.unsubscribe();
+    this.globalService.destroySnackBar(this.snackBar);
+    this.subscriptionServiceLogin.unsubscribe();
+  }
 }

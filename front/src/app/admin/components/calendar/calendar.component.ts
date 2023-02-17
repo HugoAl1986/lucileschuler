@@ -16,6 +16,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateEventCalendar } from './modal-create-event-calendar/modal-create-event-calendar.component';
 import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/modal-edit-event-calendar.component';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-calendar',
@@ -26,7 +27,8 @@ import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/mod
 export class CalendarComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog, 
+    private authService:AuthService
   ) {}
 
   calendarVisible = true;
@@ -83,6 +85,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.calendarOptions;
+    console.log(this.authService.isLogged());
   }
 
   openDialogCreateEvent(selectInfo: DateSelectArg) {

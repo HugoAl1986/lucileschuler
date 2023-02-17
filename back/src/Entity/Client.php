@@ -24,12 +24,12 @@ class Client
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Cheval::class, orphanRemoval: true)]
-    private Collection $chevals;
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Horse::class, orphanRemoval: true)]
+    private Collection $horses;
 
     public function __construct()
     {
-        $this->chevals = new ArrayCollection();
+        $this->horses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,29 +74,29 @@ class Client
     }
 
     /**
-     * @return Collection<int, Cheval>
+     * @return Collection<int, Horse>
      */
-    public function getChevals(): Collection
+    public function getHorses(): Collection
     {
-        return $this->chevals;
+        return $this->horses;
     }
 
-    public function addCheval(Cheval $cheval): self
+    public function addHorse(Horse $Horse): self
     {
-        if (!$this->chevals->contains($cheval)) {
-            $this->chevals->add($cheval);
-            $cheval->setClient($this);
+        if (!$this->horses->contains($Horse)) {
+            $this->horses->add($Horse);
+            $Horse->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeCheval(Cheval $cheval): self
+    public function removeHorse(Horse $horse): self
     {
-        if ($this->chevals->removeElement($cheval)) {
+        if ($this->horses->removeElement($horse)) {
             // set the owning side to null (unless already changed)
-            if ($cheval->getClient() === $this) {
-                $cheval->setClient(null);
+            if ($horse->getClient() === $this) {
+                $horse->setClient(null);
             }
         }
 

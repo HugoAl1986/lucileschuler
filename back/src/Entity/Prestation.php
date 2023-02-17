@@ -22,7 +22,7 @@ class Prestation
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Cheval $cheval = null;
+    private ?Horse $horse = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     private ?AdressePrestation $adresse_prestation = null;
@@ -47,14 +47,14 @@ class Prestation
         return $this;
     }
 
-    public function getCheval(): ?cheval
+    public function getHorse(): ?horse
     {
-        return $this->cheval;
+        return $this->horse;
     }
 
-    public function setCheval(?cheval $cheval): self
+    public function setHorse(?horse $horse): self
     {
-        $this->cheval = $cheval;
+        $this->horse = $horse;
 
         return $this;
     }

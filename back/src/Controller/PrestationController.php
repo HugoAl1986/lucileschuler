@@ -18,12 +18,12 @@ class PrestationController extends AbstractController
     {
     }
 
-    #[Route('/api/admin/create_prestation/{id_cheval}/{id_prix}', name: 'api_create_prestation')]
-    public function createPrestation(Request $request, int $id_cheval, int $id_prix): JsonResponse
+    #[Route('/api/admin/create_prestation/{id_horse}/{id_prix}', name: 'api_create_prestation')]
+    public function createPrestation(Request $request, int $id_horse, int $id_prix): JsonResponse
     {
         $payload = $request->getContent();
         $prestation = $this->serialization->deserializeJson($payload, Prestation::class);
-        $response = $this->prestationService->createPrestation($prestation, $id_cheval, $id_prix);
+        $response = $this->prestationService->createPrestation($prestation, $id_horse, $id_prix);
 
 
         return $this->json([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
@@ -31,12 +31,12 @@ class PrestationController extends AbstractController
         }]);;
     }
 
-    #[Route('/api/admin/update_prestation/{id_cheval}/{id_prix}/{id_prestation}', name: 'api_update_prestation')]
-    public function updatePrestation(Request $request, int $id_cheval, int $id_prix, int $id_prestation): JsonResponse
+    #[Route('/api/admin/update_prestation/{id_horse}/{id_prix}/{id_prestation}', name: 'api_update_prestation')]
+    public function updatePrestation(Request $request, int $id_horse, int $id_prix, int $id_prestation): JsonResponse
     {
         $payload = $request->getContent();
         $prestation = $this->serialization->deserializeJson($payload, Prestation::class);
-        $response = $this->prestationService->updatePrestation($prestation, $id_cheval, $id_prix, $id_prestation);
+        $response = $this->prestationService->updatePrestation($prestation, $id_horse, $id_prix, $id_prestation);
 
 
         return $this->json(["message" => $response["content"]], $response["status_code"]);;

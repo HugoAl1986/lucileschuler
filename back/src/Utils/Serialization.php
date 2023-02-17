@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Entity\ContactMail;
+use App\Entity\Horse;
 use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;

@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ChevalRepository;
+use App\Repository\HorseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: ChevalRepository::class)]
-class Cheval
+#[ORM\Entity(repositoryClass: HorseRepository::class)]
+class Horse
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,12 +22,12 @@ class Cheval
     #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
-    #[ORM\ManyToOne(inversedBy: 'chevals')]
+    #[ORM\ManyToOne(inversedBy: 'horses')]
     #[ORM\JoinColumn(nullable: true)]
   
     private ?Client $client = null;
 
-    #[ORM\OneToMany(mappedBy: 'cheval', targetEntity: Prestation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'horse', targetEntity: Prestation::class, orphanRemoval: true)]
     private Collection $prestations;
 
     public function __construct()
@@ -88,7 +88,7 @@ class Cheval
     {
         if (!$this->prestations->contains($prestation)) {
             $this->prestations->add($prestation);
-            $prestation->setCheval($this);
+            $prestation->setHorse($this);
         }
 
         return $this;
@@ -98,8 +98,8 @@ class Cheval
     {
         if ($this->prestations->removeElement($prestation)) {
             // set the owning side to null (unless already changed)
-            if ($prestation->getCheval() === $this) {
-                $prestation->setCheval(null);
+            if ($prestation->getHorse() === $this) {
+                $prestation->setHorse(null);
             }
         }
 

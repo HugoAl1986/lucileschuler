@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Entity\Prestation;
-use App\Repository\ChevalRepository;
+use App\Repository\HorseRepository;
 use App\Repository\PrestationRepository;
 use App\Repository\PrixRepository;
 use App\Utils\Functions;
@@ -11,16 +11,16 @@ use App\Utils\Functions;
 class PrestationService
 {
 
-    public function __construct(private PrestationRepository $prestationRepository, private Functions $functions, private ChevalRepository $chevalRepository, private PrixRepository $prixRepository)
+    public function __construct(private PrestationRepository $prestationRepository, private Functions $functions, private HorseRepository $horseRepository, private PrixRepository $prixRepository)
     {
     }
 
-    public function createPrestation(Prestation $prestation, int $id_cheval, int $id_prix)
+    public function createPrestation(Prestation $prestation, int $id_horse, int $id_prix)
     {
 
-        $cheval = $this->chevalRepository->find($id_cheval);
+        $horse = $this->horseRepository->find($id_horse);
 
-        if (!$cheval) {
+        if (!$horse) {
             return ["content" => "le cheval n'existe pas en base !", "status_code" => 404];
         }
 
@@ -28,7 +28,7 @@ class PrestationService
         if (!$prix) {
             return ["content" => "ce prix n'existe pas en base !", "status_code" => 404];
         }
-        $prestation->setCheval($cheval)
+        $prestation->setHorse($horse)
                    ->setPrix($prix);
 
         try {
@@ -40,16 +40,16 @@ class PrestationService
         return ["content" => $prestation, "status_code" => 201];
     }
 
-    public function updatePrestation(Prestation $prestation, int $id_cheval, int $id_prix, int $id_prestation)
+    public function updatePrestation(Prestation $prestation, int $id_horse, int $id_prix, int $id_prestation)
     {
         $prestationFromDB = $this->prestationRepository->find($id_prestation);
         if (!$prestation) {
             return ["content" => "la prestation n'existe pas !", "status_code" => 404];
         }
 
-        $cheval = $this->chevalRepository->find($id_cheval);
-        if (!$cheval) {
-            return ["content" => "le cheval n'existe pas !", "status_code" => 404];
+        $horse = $this->horseRepository->find($id_horse);
+        if (!$horse) {
+            return ["content" => "le horse n'existe pas !", "status_code" => 404];
         }
         $prix = $this->prixRepository->find($id_prix);
         if (!$prix) {
@@ -57,7 +57,7 @@ class PrestationService
         }
 
         $prestationFromDB->setDate($prestation->getDate())
-                         ->setCheval($cheval)
+                         ->setHorse($horse)
                          ->setPrix($prix);
 
         try {

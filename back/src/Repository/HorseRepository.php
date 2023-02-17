@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Cheval;
+use App\Entity\Horse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Cheval>
+ * @extends ServiceEntityRepository<Horse>
  *
- * @method Cheval|null find($id, $lockMode = null, $lockVersion = null)
- * @method Cheval|null findOneBy(array $criteria, array $orderBy = null)
- * @method Cheval[]    findAll()
- * @method Cheval[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Horse|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Horse|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Horse[]    findAll()
+ * @method Horse[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ChevalRepository extends ServiceEntityRepository
+class HorseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Cheval::class);
+        parent::__construct($registry, Horse::class);
     }
 
-    public function save(Cheval $entity, bool $flush = false): void
+    public function save(Horse $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ChevalRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Cheval $entity, bool $flush = false): void
+    public function remove(Horse $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ChevalRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Cheval[] Returns an array of Cheval objects
+//     * @return Horse[] Returns an array of Horse objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ChevalRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Cheval
+//    public function findOneBySomeField($value): ?Horse
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

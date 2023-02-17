@@ -1,12 +1,12 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/auth/auth.service';
 import { GlobalService } from 'src/app/shared/services/global.service';
 import { HttpService } from 'src/app/shared/services/http.service';
-import { User } from 'src/app/user.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-form-login',
@@ -15,23 +15,24 @@ import { User } from 'src/app/user.interface';
 })
 export class FormLoginComponent implements OnDestroy {
   public constructor(
-    private snackBar:MatSnackBar,
-    private globalService:GlobalService,
+    private snackBar: MatSnackBar,
+    private globalService: GlobalService,
     private router: Router,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private authService: AuthService
   ) {}
 
   interval = interval(1000);
   subscriptionInterval: Subscription;
-  subscriptionServiceLogin:Subscription;
+  subscriptionServiceLogin: Subscription;
   hide: boolean = true;
   user: User = {
-    username : '',
-    password : ''
+    username: '',
+    password: '',
   };
   token: string;
-  displaySpinner:boolean = false;
-  errorLoggin:boolean = false;
+  displaySpinner: boolean = false;
+  errorLoggin: string = '';
 
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -46,18 +47,19 @@ export class FormLoginComponent implements OnDestroy {
       this.subscriptionServiceLogin = this.httpService
         .loggin(this.user)
         .subscribe({
-          next: (data: string) => {
+          next: (data: any) => {
             this.displaySpinner = false;
-            this.httpService.token = data;
+            this.authService.token = data.token;
             this.globalService.authSnackbarOpen(this.snackBar);
             this.subscriptionInterval = this.interval.subscribe(() => {
-              this.router.navigate(['/admin/dashboard']);
+              this.router.navigate(['/admin']);
             });
           },
           error: (error) => {
-            this.errorLoggin = true;
+            console.log(error);
+            this.errorLoggin = error.error['message'];
             this.displaySpinner = false;
-          }
+          },
         });
     }
   }

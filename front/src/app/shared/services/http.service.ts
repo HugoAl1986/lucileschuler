@@ -1,32 +1,33 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { User } from 'src/app/user.interface';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HttpService {
+  url: string;
 
-  url:string;
-  token:string;
-
-  constructor(private http:HttpClient) { 
-    this.url = "https://localhost:8000/api/"
+  constructor(private http: HttpClient) {
+    this.url = 'https://localhost:8000/api/';
   }
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
-    })
+      'Content-Type': 'application/json',
+    }),
   };
 
-  loggin(datas:User){
-    return this.http.post<string>(this.url + 'login_check',datas, this.httpOptions)
+  loggin(datas: User) {
+    return this.http.post<string>(
+      this.url + 'login_check',
+      datas,
+      this.httpOptions
+    );
   }
 
-  isLogged() : boolean{
-   return this.token ? true : false;
+  getClients():Observable<any>{
+    return this.http.get(this.url + 'admin/clients')
   }
-
 }

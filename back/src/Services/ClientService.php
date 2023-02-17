@@ -38,8 +38,10 @@ class ClientService
 
     public function getClients(): array
     {
+        
         try {
-            $clients = $this->rep->findBy([], ["nom" => "ASC"]);
+            $clients = $this->rep->findBy([], ["nom" => "ASC"]);  
+            //$clients = $this->rep->getClientsWithOnlyIdHorses();
         } catch (\Exception $e) {
             return $this->f->messageErreur($e, 'Erreur lors de la récupération des données');
         }

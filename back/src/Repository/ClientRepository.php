@@ -39,6 +39,18 @@ class ClientRepository extends ServiceEntityRepository
         }
     }
 
+    public function getClientsWithOnlyIdHorses() : array{
+        
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT client.id, client.nom, client.prenom, horse.id as horse_id, horse.nom as horse_nom
+                from client
+                INNER JOIN horse 
+                ON client.id = horse.client_id';
+        $req = $conn->prepare($sql);
+        $data = $req->executeQuery();
+        return $data->fetchAllAssociative();
+    } 
+
 //    /**
 //     * @return Client[] Returns an array of Client objects
 //     */

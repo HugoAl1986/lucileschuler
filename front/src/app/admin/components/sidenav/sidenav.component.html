@@ -22,9 +22,18 @@
       (mouseenter)="onMouseEnter(activeLi)"
       (mouseleave)="onMouseLeave(activeLi)"
     >
-      <a
+      <a *ngIf="m['path']"
         class="d-flex flex-row align-items-center justify-content-center flex-nowrap"
         [routerLink]="m['path']"
+      >
+        <mat-icon aria-hidden="false" fontIcon="{{ m['icon'] }}"></mat-icon>
+        <span
+          [style.color]="changeColor.includes(i) ? colorOnClick : 'inherit'"
+          >{{ m["name"] }}</span
+        >
+      </a>
+      <a *ngIf="!m['path']"
+        class="d-flex flex-row align-items-center justify-content-center flex-nowrap"
       >
         <mat-icon aria-hidden="false" fontIcon="{{ m['icon'] }}"></mat-icon>
         <span

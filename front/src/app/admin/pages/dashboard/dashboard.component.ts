@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit{
   constructor(private router:Router){}
 
   ngOnInit(): void {
-      this.router.navigate(["/admin/dashboard/calendrier"]);
+      this.router.navigate(["/admin/calendrier"]);
   }
 
 }

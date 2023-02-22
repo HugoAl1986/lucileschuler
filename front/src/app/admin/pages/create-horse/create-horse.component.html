@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+    <h2 class="mat-h2 w-100">Creer un cheval</h2>
+    <form [formGroup]="horseForm" (ngSubmit)="onSubmit()">
+      <div class="pt-3 d-flex justify-content-center">
+        <mat-form-field color="primary">
+          <mat-label>nom</mat-label>
+          <input matInput formControlName="nom" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>age</mat-label>
+          <input matInput type="number" formControlName="age" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Clients</mat-label>
+            <mat-select formControlName="client">
+              <mat-option *ngFor="let client of clients" [value]="client.id">
+                {{client.nom}} {{client.prenom}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="pt-3 d-flex justify-content-start">
+        <a routerLink="/admin/horses"
+          ><button mat-raised-button color="primary">Retour</button></a
+        >
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          [disabled]="!horseForm.valid"
+        >
+          Valider
+        </button>
+      </div>
+    </form>
+  </div>
+  

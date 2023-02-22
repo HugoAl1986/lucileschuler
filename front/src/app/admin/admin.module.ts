@@ -6,7 +6,7 @@ import { StatsComponent } from './components/stats/stats.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CalendarComponent } from './components/calendar/calendar.component';
-import { ClientsComponent } from './components/clients/clients.component';
+import { ClientsComponent } from './pages/clients/clients.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { MaterialModule } from '../shared/material/material.module';
 import { ModalCreateEventCalendar } from './components/calendar/modal-create-event-calendar/modal-create-event-calendar.component';
@@ -16,6 +16,11 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { ModalEditEventCalendarComponent } from './components/calendar/modal-edit-event-calendar/modal-edit-event-calendar.component';
 import { ModalWatchEventComponent } from './components/calendar/modal-watch-event/modal-watch-event.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { ClientComponent } from './pages/client/client.component';
+import { CreateclientComponent } from './pages/createclient/createclient.component';
+import { DialogDeleteClientComponent } from './pages/clients/dialog-delete-client/dialog-delete-client.component';
+import { HorseComponent } from './pages/horses/horse.component';
+import { CreateHorseComponent } from './pages/create-horse/create-horse.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +32,11 @@ import { AppRoutingModule } from '../app-routing.module';
     ModalCreateEventCalendar,
     ModalEditEventCalendarComponent,
     ModalWatchEventComponent,
+    ClientComponent,
+    CreateclientComponent,
+    DialogDeleteClientComponent,
+    HorseComponent,
+    CreateHorseComponent,
   ],
   imports: [
     CommonModule,

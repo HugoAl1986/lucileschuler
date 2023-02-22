@@ -38,10 +38,10 @@ class ClientController extends AbstractController
         $response = $this->cs->getClients();
         return $this->json($response["content"], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        },AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'prenom', 'horses' => ['nom']]]);
+        },AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'prenom','email','horses' => ['id','nom']]]);
     }
 
-    #[Route('/api/admin/update_client/{id}', name: "update_client")]
+    #[Route('/api/admin/update_client/{id}',name: "update_client")]
     public function updateClient(Request $req, int $id): JsonResponse
     {
 
@@ -49,7 +49,9 @@ class ClientController extends AbstractController
         $client = $this->serialization->deserializeJson($datas, Client::class);
         $response = $this->cs->updateClient($client, $id);
 
-        return $this->json($response["content"], $response["status_code"]);
+        return $this->json($response["content"], $response["status_code"], [],[ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+            return $object->getId();
+        } ]);
     }
 
     #[Route('/api/admin/remove_client/{id}', name: 'remove_client')]
@@ -59,5 +61,15 @@ class ClientController extends AbstractController
         $response =  $this->cs->removeClient($id);
 
         return $this->json($response["content"], $response["status_code"]);
+    }
+
+    #[Route('/api/admin/get_client/{id}', name: 'get_client')]
+    public function getClient(int $id): JsonResponse
+    {
+        $response = $this->cs->getClient($id);
+
+        return $this->json($response["content"], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+            return $object->getId();
+        }, AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'prenom','email','horses' => ['id','nom']]]);
     }
 }

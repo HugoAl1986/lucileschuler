@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+  <h2 class="mat-h2 w-100">Modifier un client</h2>
+  <h5 *ngIf="client" class="mat-h5">
+    * Si tu veux modifier ou créer un nouveau cheval pour
+    {{ client["prenom"] }} passe par l'onglet chevaux de la barre latérale
+  </h5>
+  <form [formGroup]="clientForm">
+    <div class="pt-3 d-flex justify-content-center">
+      <mat-form-field color="primary">
+        <mat-label>nom</mat-label>
+        <input matInput formControlName="nom" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>prenom</mat-label>
+        <input matInput formControlName="prenom" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    </div>
+    <div class="pt-3 d-flex justify-content-start">
+      <a routerLink="/admin/clients"
+        ><button mat-raised-button color="primary">Retour</button></a
+      >
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="button == 'Modifier' ? enableFields() : onSubmit()"
+        [disabled]="button == 'Valider' && !clientForm.valid"
+      >
+        {{ button }}
+      </button>
+    </div>
+  </form>
+</div>

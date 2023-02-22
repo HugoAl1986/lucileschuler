@@ -12,6 +12,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorCustom } from 'src/app/admin/pages/clients/clients.component';
+import {MatSortModule} from '@angular/material/sort';
 
 const MATERIALS = [
   MatButtonModule,
@@ -29,15 +33,18 @@ const MATERIALS = [
   MatSidenavModule,
   MatListModule,
   MatSelectModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, 
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 ];
 
 @NgModule({
   declarations: [],
   imports: MATERIALS,
   exports: MATERIALS,
-  providers:[{
-    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}
-  }]
+  providers:[
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+    {provide : MatPaginatorIntl, useClass: MatPaginatorCustom}]
 })
 export class MaterialModule {}

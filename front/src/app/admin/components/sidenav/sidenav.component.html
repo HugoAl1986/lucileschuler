@@ -22,20 +22,36 @@
       (mouseenter)="onMouseEnter(activeLi)"
       (mouseleave)="onMouseLeave(activeLi)"
     >
-      <a *ngIf="m['path']"
+      <a
+        *ngIf="m['path']"
         class="d-flex flex-row align-items-center justify-content-center flex-nowrap"
         [routerLink]="m['path']"
       >
-        <mat-icon aria-hidden="false" fontIcon="{{ m['icon'] }}"></mat-icon>
+        <mat-icon
+          *ngIf="m['name'] !== 'Chevaux'"
+          aria-hidden="false"
+          fontIcon="{{ m['icon'] }}"
+          color="accent"
+        ></mat-icon>
+        <fa-icon
+          *ngIf="m['name'] == 'Chevaux'"
+          [icon]="m['icon']"
+          style="color: #39ae8c;font-size:24px"
+        ></fa-icon>
         <span
           [style.color]="changeColor.includes(i) ? colorOnClick : 'inherit'"
           >{{ m["name"] }}</span
         >
       </a>
-      <a *ngIf="!m['path']"
+      <a
+        *ngIf="!m['path']"
         class="d-flex flex-row align-items-center justify-content-center flex-nowrap"
       >
-        <mat-icon aria-hidden="false" fontIcon="{{ m['icon'] }}"></mat-icon>
+        <mat-icon
+          aria-hidden="false"
+          fontIcon="{{ m['icon'] }}"
+          color="accent"
+        ></mat-icon>
         <span
           [style.color]="changeColor.includes(i) ? colorOnClick : 'inherit'"
           >{{ m["name"] }}</span

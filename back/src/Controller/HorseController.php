@@ -19,6 +19,20 @@ class HorseController extends AbstractController
     {
     }
 
+    #[Route('/api/admin/get_horses', name: 'get_horses')]
+    public function getHorses(): JsonResponse
+    {
+        $response = $this->cs->getHorses();
+        return $this->json(
+            $response["content"],
+            $response["status_code"],
+            [],
+            [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+                return $object->getId();
+            }, AbstractNormalizer::ATTRIBUTES => (["id", "nom", "age", "client" => ["id", "nom", "prenom"], "prestations"])
+        ]);
+    }
+
     #[Route('/api/admin/create_horse/{client_id}', name: 'create_horse')]
     public function createHorse(Request $req, int $client_id): JsonResponse
     {
@@ -28,12 +42,12 @@ class HorseController extends AbstractController
         $response = $this->cs->saveHorse($horse, $client_id);
 
         return $this->json(
-            [$response["content"]],
+            $response["content"],
             $response["status_code"],
             [],
             [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
                 return $object->getId();
-            }, AbstractNormalizer::ATTRIBUTES => (["id", "nom"])
+            }, AbstractNormalizer::ATTRIBUTES => (["id", "nom","age", "client" => ["id", "nom", "prenom"], "prestations"])
         ]);
     }
 

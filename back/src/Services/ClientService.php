@@ -90,4 +90,15 @@ class ClientService
 
         return ["content" => "le client " . $client->getEmail() . " a bien été supprimé !", "status_code" => 200];
     }
+
+    public function getClient(int $id):array{
+
+        $client = $this->rep->find($id);
+
+        if(!$client){
+            return ["content" => "l'id " . $id . " n'existe pas en DB !!", "status_code" => 400];
+        }
+
+        return ["content" => $client, "status_code" => 200];
+    }
 }

@@ -85,7 +85,6 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.calendarOptions;
-    console.log(this.authService.isLogged());
   }
 
   openDialogCreateEvent(selectInfo: DateSelectArg) {

@@ -49,7 +49,7 @@ export class FormLoginComponent implements OnDestroy {
         .subscribe({
           next: (data: any) => {
             this.displaySpinner = false;
-            this.authService.token = data.token;
+            this.authService.setLocalStorageToken(data.token);
             this.globalService.authSnackbarOpen(this.snackBar);
             this.subscriptionInterval = this.interval.subscribe(() => {
               this.router.navigate(['/admin']);

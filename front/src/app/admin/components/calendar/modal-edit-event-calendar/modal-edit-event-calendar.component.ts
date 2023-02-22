@@ -21,7 +21,6 @@ export class ModalEditEventCalendarComponent implements OnInit {
   }
 
  ngOnInit(): void {
-     console.log(this.datasFromCalendar);
  }
 
  deleteEvent(): void{

@@ -19,6 +19,17 @@ class HorseService
     ) {
     }
 
+    public function getHorses():array{
+        try {
+            $horses = $this->horseRepository->findBy([], ["nom" => "ASC"]);  
+        } catch (\Exception $e) {
+            return $this->f->messageErreur($e, 'Erreur lors de la récupération des données');
+        }
+
+        return ["content" => $horses, "status_code" => 200];
+        
+    }
+
     public function saveHorse(Horse $horse, int $id): array
     {
         $em = $this->managerRegistry->getManager();

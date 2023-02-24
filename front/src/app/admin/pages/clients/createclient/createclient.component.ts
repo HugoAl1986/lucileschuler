@@ -25,14 +25,9 @@ export class CreateclientComponent implements OnDestroy {
 
   onSubmit(): void {
     if (this.clientForm.status == 'VALID') {
-      this.clients = this.httpService.clients.getValue();
       this.subscriptionCreateClient = this.httpService
         .createClient(this.clientForm.value)
-        .subscribe((data: Client) => {
-          this.clients.push(data);
-          this.httpService.clients.next(this.clients);
-          this.router.navigate(['/admin/clients']);
-        });
+        .subscribe((data: Client) => this.router.navigate(['/admin/clients']));
     }
   }
 

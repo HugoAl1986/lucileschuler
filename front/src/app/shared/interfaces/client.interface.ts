@@ -1,7 +1,7 @@
 import { Horse } from "./horse.interface";
 
 export interface Client {
-    id?:string,
+    id?:string | number,
     nom:string;
     prenom:string;
     email:string;

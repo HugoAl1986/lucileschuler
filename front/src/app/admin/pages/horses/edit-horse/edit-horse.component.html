@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+    <h2 class="mat-h2 w-100">Modifier un Cheval</h2>
+    <form [formGroup]="horseForm">
+      <div class="pt-3 d-flex justify-content-center">
+        <mat-form-field color="primary">
+          <mat-label>nom</mat-label>
+          <input matInput formControlName="nom" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>age</mat-label>
+          <input type="number" matInput formControlName="age" />
+        </mat-form-field>
+      </div>
+      <div class="pt-3 d-flex justify-content-start">
+        <a routerLink="/admin/horses"
+          ><button mat-raised-button color="primary">Retour</button></a
+        >
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="button == 'Modifier' ? enableFields() : onSubmit()"
+          [disabled]="button == 'Valider' && !horseForm.valid"
+        >
+          {{ button }}
+        </button>
+      </div>
+    </form>
+  </div>
+  

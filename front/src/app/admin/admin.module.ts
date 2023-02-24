@@ -16,11 +16,13 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { ModalEditEventCalendarComponent } from './components/calendar/modal-edit-event-calendar/modal-edit-event-calendar.component';
 import { ModalWatchEventComponent } from './components/calendar/modal-watch-event/modal-watch-event.component';
 import { AppRoutingModule } from '../app-routing.module';
-import { ClientComponent } from './pages/client/client.component';
-import { CreateclientComponent } from './pages/createclient/createclient.component';
+import { ClientComponent } from './pages/clients/client/client.component';
+import { CreateclientComponent } from './pages/clients/createclient/createclient.component';
 import { DialogDeleteClientComponent } from './pages/clients/dialog-delete-client/dialog-delete-client.component';
 import { HorseComponent } from './pages/horses/horse.component';
-import { CreateHorseComponent } from './pages/create-horse/create-horse.component';
+import { CreateHorseComponent } from './pages/horses/create-horse/create-horse.component';
+import { DeleteHorseComponent } from './pages/horses/delete-horse/delete-horse.component';
+import { EditHorseComponent } from './pages/horses/edit-horse/edit-horse.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CreateHorseComponent } from './pages/create-horse/create-horse.componen
     DialogDeleteClientComponent,
     HorseComponent,
     CreateHorseComponent,
+    DeleteHorseComponent,
+    EditHorseComponent,
   ],
   imports: [
     CommonModule,

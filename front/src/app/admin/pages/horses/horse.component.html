@@ -49,7 +49,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let horse">
-        <a [routerLink]="['/admin/horses']" class="d-inline-block me-2"
+        <a [routerLink]="['/admin/horses', horse.id]" class="d-inline-block me-2"
           ><mat-icon fontIcon="edit" color="primary"></mat-icon
         ></a>
         <mat-icon

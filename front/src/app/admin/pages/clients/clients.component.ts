@@ -27,7 +27,7 @@ export class MatPaginatorCustom extends MatPaginatorIntl {
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss'],
 })
-export class ClientsComponent implements OnInit, AfterViewInit{
+export class ClientsComponent implements OnInit, AfterViewInit {
   constructor(private httpService: HttpService, public dialog: MatDialog) {}
 
   dataSource: MatTableDataSource<Client> = new MatTableDataSource();
@@ -41,26 +41,13 @@ export class ClientsComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    console.log(this.dataSource.data.length);
   }
 
   ngOnInit(): void {
-    
-    if (this.httpService.clients.getValue().length == 0) {
-      this.httpService.getClients().subscribe({
-        next: (datas) => {
-          this.dataSource.data = datas;
-          this.httpService.clients.next(datas);
-          this.displaySpinner = false;
-        },
-        error: (data: string) => console.log(data),
-      });
-    } else {
-      this.httpService.clients.subscribe((data: Client[]) => {
-        this.dataSource.data = data;
-        this.displaySpinner = false;
-      });
-    }
+    this.httpService.clients.subscribe(
+      (clients: Client[]) => (this.dataSource.data = clients)
+    );
+    this.displaySpinner = false;
   }
 
   openDialog(client: Client) {

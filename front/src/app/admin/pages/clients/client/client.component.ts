@@ -10,7 +10,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
 })
-export class ClientComponent implements OnInit, OnDestroy {
+export class ClientComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private service: HttpService,
@@ -48,27 +48,11 @@ export class ClientComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.clientForm.status == 'VALID') {
-      this.updateClient = this.service
-        .updateClient(this.clientForm.value, this.idClient)
+      this.service
+        .updateClient(this.clientForm.value, this.idClient, this.clientForm)
         .subscribe((data: Client) => {
-          const newClients = this.service.clients.getValue();
-          const id = newClients.findIndex(
-            (client: Client) => client.id == this.idClient
-          );
-          if (id !== -1) {
-            newClients[id]['nom'] = this.clientForm.value.nom;
-            newClients[id]['prenom'] = this.clientForm.value.prenom;
-            newClients[id]['email'] = this.clientForm.value.email;
-          }
-          this.service.clients.next(newClients);
           this.router.navigate(['/admin/clients']);
         });
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.updateClient) {
-      this.updateClient.unsubscribe();
     }
   }
 }

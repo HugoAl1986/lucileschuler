@@ -79,4 +79,32 @@ class HorseService
 
         return ["content" => "le horse a bien été modifié !", "status_code" => 200];
     }
+
+    public function removeHorse($id): array
+    {
+        $horse= $this->horseRepository->find($id);
+
+        if (!$horse) {
+            return ["content" => "le cheval n'existe pas en DB !!", "status_code" => 404];
+        }
+
+        try {
+            $this->horseRepository->remove($horse, true);
+        } catch (\Exception $e) {
+            return $this->f->messageErreur($e, 'Une erreur est survenue lors de la suppression du cheval');
+        }
+
+        return ["content" => "le cheval " . $horse->getNom() . " a bien été supprimé !", "status_code" => 200];
+    }
+
+    public function getHorse(int $id):array{
+
+        $horse = $this->horseRepository->find($id);
+
+        if(!$horse){
+            return ["content" => "l'id " . $id . " n'existe pas en DB !!", "status_code" => 400];
+        }
+
+        return ["content" => $horse, "status_code" => 200];
+    }
 }

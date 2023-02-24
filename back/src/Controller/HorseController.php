@@ -60,4 +60,22 @@ class HorseController extends AbstractController
 
         return $this->json(["message" => $response["content"]], $response["status_code"]);
     }
+
+    #[Route('/api/admin/remove_horse/{id}', name: 'remove_horse')]
+    public function removeClient(int $id): JsonResponse
+    {
+
+        $response =  $this->cs->removeHorse($id);
+
+        return $this->json($response["content"], $response["status_code"]);
+    }
+    #[Route('/api/admin/get_horse/{id}', name: 'get_horse')]
+    public function getClient(int $id): JsonResponse
+    {
+        $response = $this->cs->getHorse($id);
+
+        return $this->json($response["content"], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+            return $object->getId();
+        }, AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'age','client']]);
+    }
 }

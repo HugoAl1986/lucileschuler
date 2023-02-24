@@ -16,13 +16,6 @@ export class DialogDeleteClientComponent {
   ) {}
 
   removeClient(): void {
-    this.httpService.removeClient(this.data.id).subscribe((data: string) => {
-      const clients = this.httpService.clients.getValue();
-      const index = clients.findIndex(
-        (client: Client) => client.id == this.data.id
-      );
-      clients.splice(index, 1);
-      this.httpService.clients.next(clients);
-    });
+    this.httpService.removeClient(this.data.id).subscribe();
   }
 }

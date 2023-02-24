@@ -22,11 +22,7 @@ export class CreateHorseComponent implements OnInit {
   clients: Client[];
 
   ngOnInit(): void {
-    console.log('init createhorse');
-    this.httpService.getClients().subscribe((clients: Client[]) => {
-      this.clients = clients;
-      this.httpService.clients.next(clients);
-    });
+   this.httpService.clients.subscribe((clients:Client[]) => this.clients = clients);
   }
 
   onSubmit(): void {
@@ -38,13 +34,6 @@ export class CreateHorseComponent implements OnInit {
           this.horseForm.controls['client'].value
         )
         .subscribe((horse: Horse) => {
-          const horses = this.httpService.horses.getValue();
-          const clients = this.httpService.clients.getValue();
-          const id = clients.findIndex((client:Client) => client.id == this.horseForm.controls['client'].value);
-          clients[id].horses.push(horse);
-          horses.push(horse);
-          this.httpService.horses.next(horses);
-          this.httpService.clients.next(clients);
           this.router.navigate(['/admin/horses']);
         });
     }

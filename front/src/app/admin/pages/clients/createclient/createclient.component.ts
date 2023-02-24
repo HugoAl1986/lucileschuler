@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Client } from 'src/app/shared/interfaces/client.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 
 @Component({
   selector: 'app-createclient',
@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
   styleUrls: ['./createclient.component.scss'],
 })
 export class CreateclientComponent implements OnDestroy {
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpService: HttpClientService, private router: Router) {}
 
   clientForm = new FormGroup({
     email: new FormControl('', Validators.required),

@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/shared/interfaces/client.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 
 @Component({
   selector: 'app-dialog-delete-client',
@@ -12,7 +12,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
 export class DialogDeleteClientComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Client,
-    private httpService: HttpService
+    private httpService: HttpClientService
   ) {}
 
   removeClient(): void {

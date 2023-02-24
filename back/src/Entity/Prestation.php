@@ -18,7 +18,11 @@ class Prestation
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
-    private ?\DateTimeInterface $date = null;
+    private ?\DateTimeInterface $start = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
+    private ?\DateTimeInterface $end = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     #[ORM\JoinColumn(nullable: false)]
@@ -35,14 +39,26 @@ class Prestation
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getStart(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->start;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setStart(\DateTimeInterface $start): self
     {
-        $this->date = $date;
+        $this->start = $start;
+
+        return $this;
+    }
+
+    public function getEnd(): ?\DateTimeInterface
+    {
+        return $this->end;
+    }
+
+    public function setEnd(\DateTimeInterface $end): self
+    {
+        $this->end = $end;
 
         return $this;
     }

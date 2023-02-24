@@ -8,12 +8,6 @@ export class UtilsService {
 
   constructor() { }
 
-  displayComponent:BehaviorSubject<Object> = new BehaviorSubject({
-    name:'Calendrier',
-    display:true
-  });
-
-
   formatDate(date:Date){
     const day = date.toLocaleDateString();
     const hours = date.toLocaleTimeString([],{timeStyle: 'short'})
@@ -22,5 +16,7 @@ export class UtilsService {
       hours : hours
     }
   } 
+
+  urlApi:string = 'https://localhost:8000/api/';
 
 }

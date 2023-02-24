@@ -13,6 +13,20 @@ class PrixService
     {
     }
 
+    public function get_prix(): array
+    {
+
+        try {
+            $prix = $this->prixRepository->findAll();  
+        } catch (\Exception $e) {
+            return $this->functions->messageErreur($e, 'Erreur lors de la récupération des données');
+        }
+
+        return ["content" => $prix, "status_code" => 200];
+        
+    }
+    
+
     public function create_prix(Prix $prix): array
     {
 

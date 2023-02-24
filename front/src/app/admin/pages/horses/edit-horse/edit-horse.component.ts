@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
 
 @Component({
   selector: 'app-edit-horse',
@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
 })
 export class EditHorseComponent implements OnInit {
   constructor(
-    private httpService: HttpService,
+    private httpHorseService: HttpHorseService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -21,7 +21,7 @@ export class EditHorseComponent implements OnInit {
   horseForm: FormGroup = new FormGroup({
     nom: new FormControl({ value: '', disabled: true }, Validators.required),
     age: new FormControl({ value: '', disabled: true }, Validators.required),
-    idClient: new FormControl({ value: '', disabled: true }, Validators.required),
+    client: new FormControl(''),
   });
 
   idHorse: string | number;
@@ -34,20 +34,21 @@ export class EditHorseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpService.getHorse(this.idHorse).subscribe((horse: Horse) => {
+    this.httpHorseService.getHorse(this.idHorse).subscribe((horse: Horse) => {
       this.horse = horse;
       this.horseForm.setValue({
         nom: this.horse.nom,
         age: this.horse.age,
-        idClient: this.horse.client['id']
+        client: this.horse.client,
       });
     });
   }
 
   onSubmit(): void {
     if (this.horseForm.status == 'VALID') {
-      this.httpService
-        .updateHorse(this.idHorse, this.horseForm)
+      this.horse = this.horseForm.value;
+      this.httpHorseService
+        .updateHorse(this.idHorse, this.horse)
         .subscribe((data: Horse) => this.router.navigate(['admin/horses']));
     }
   }

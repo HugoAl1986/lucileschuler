@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Prestation;
 use App\Services\PrestationService;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class PrestationController extends AbstractController
@@ -28,7 +29,7 @@ class PrestationController extends AbstractController
 
         return $this->json([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        }]);;
+        },AbstractNormalizer::ATTRIBUTES => ["id", "start", "end", "horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']]]]);;
     }
 
     #[Route('/api/admin/update_prestation/{id_horse}/{id_prix}/{id_prestation}', name: 'api_update_prestation')]
@@ -49,7 +50,7 @@ class PrestationController extends AbstractController
 
         return $this->json([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        }]);;
+        }, AbstractNormalizer::ATTRIBUTES => ["id", "start", "end", "horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']]]]);;
     }
 
     

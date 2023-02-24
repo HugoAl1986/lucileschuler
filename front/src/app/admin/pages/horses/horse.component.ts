@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
 import { DeleteHorseComponent } from './delete-horse/delete-horse.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { DeleteHorseComponent } from './delete-horse/delete-horse.component';
   styleUrls: ['./horse.component.scss'],
 })
 export class HorseComponent {
-  constructor(private httpService: HttpService, private dialog: MatDialog) {}
+  constructor(private httpHorseService: HttpHorseService, private dialog: MatDialog) {}
 
   dataSource: MatTableDataSource<Horse> = new MatTableDataSource();
   displaySpinner: boolean = true;
@@ -35,7 +35,7 @@ export class HorseComponent {
   }
 
   ngOnInit(): void {
-    this.httpService.horses.subscribe({
+    this.httpHorseService.horses.subscribe({
       next: (datas) => {
         this.dataSource.data = datas;
         this.displaySpinner = false;

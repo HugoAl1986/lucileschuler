@@ -31,6 +31,13 @@ class PrestationService
         $prestation->setHorse($horse)
                    ->setPrix($prix);
 
+        $startPrestationFromDB = $this->prestationRepository->findBy(['start' => $prestation->getStart()]);
+        $endPrestationFromDB = $this->prestationRepository->findBy(['end' => $prestation->getEnd()]);
+
+        if(!empty($startPrestationFromDB) || !empty($endPrestationFromDB)){
+            return ['content' => 'une prestation existe déja dans ce créneau horaire', "status_code" => 400];
+        };
+        dd("die");
         try {
             $this->prestationRepository->save($prestation, true);
         } catch (\Exception $e) {
@@ -56,7 +63,8 @@ class PrestationService
             return ["content" => "le prix n'existe pas !", "status_code" => 404];
         }
 
-        $prestationFromDB->setDate($prestation->getDate())
+        $prestationFromDB->setStart($prestation->getStart())
+                         ->setEnd($prestation->getEnd())
                          ->setHorse($horse)
                          ->setPrix($prix);
 
@@ -72,7 +80,7 @@ class PrestationService
     public function getPrestations(): array
     {
         try {
-            $prestations = $this->prestationRepository->findBy([], ["date" => "DESC"]);
+            $prestations = $this->prestationRepository->findAll();
         } catch (\Exception $e) {
             return $this->functions->messageErreur($e, 'Erreur lors de la récupération des données');
         }

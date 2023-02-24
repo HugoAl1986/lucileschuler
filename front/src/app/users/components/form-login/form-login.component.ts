@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { GlobalService } from 'src/app/shared/services/global.service';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
@@ -18,7 +18,7 @@ export class FormLoginComponent implements OnDestroy {
     private snackBar: MatSnackBar,
     private globalService: GlobalService,
     private router: Router,
-    private httpService: HttpService,
+    private httpService: HttpClientService,
     private authService: AuthService
   ) {}
 

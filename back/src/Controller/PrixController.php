@@ -17,7 +17,16 @@ class PrixController extends AbstractController
     {
     }
 
-    #[Route('/api/create_prix', name: 'api_create_prix')]
+    #[Route('/api/admin/get_prix', name: 'api_get_prix')]
+    public function getPrix(): JsonResponse
+    {
+
+        $response = $this->ps->get_prix();
+
+        return $this->json($response["content"], $response["status_code"]);
+    }
+
+    #[Route('/api/admin/create_prix', name: 'api_create_prix')]
     public function createPrix(Request $request): JsonResponse
     {
 
@@ -29,7 +38,7 @@ class PrixController extends AbstractController
         return $this->json($response["content"], $response["status_code"]);
     }
 
-    #[Route('/api/update_prix/{id}', name: 'api_update_prix')]
+    #[Route('/api/admin/update_prix/{id}', name: 'api_update_prix')]
     public function updatePrix(Request $request, int $id): JsonResponse
     {
 

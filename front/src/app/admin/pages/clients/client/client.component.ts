@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component,OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Client } from 'src/app/shared/interfaces/client.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
 })
-export class ClientComponent implements OnInit{
+export class ClientComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private service: HttpService,
+    private service: HttpClientService,
     private router: Router
   ) {
     this.idClient = this.route.snapshot.paramMap.get('id');

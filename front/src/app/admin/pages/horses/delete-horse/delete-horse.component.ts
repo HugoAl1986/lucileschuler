@@ -1,20 +1,21 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 
 @Component({
   selector: 'app-delete-horse',
   templateUrl: './delete-horse.component.html',
-  styleUrls: ['./delete-horse.component.scss']
+  styleUrls: ['./delete-horse.component.scss'],
 })
 export class DeleteHorseComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Horse,
-    private httpService: HttpService
+    private httpHorseService: HttpHorseService
   ) {}
 
-  removeClient(): void {
-    this.httpService.removeHorse(this.data.id).subscribe();
+  removeHorse(): void {
+    this.httpHorseService.removeHorse(this.data.id).subscribe();
   }
 }

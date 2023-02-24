@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from 'src/app/shared/services/http.service';
-import { UtilsService } from '../../utils.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { UtilsService } from '../../../shared/utils.service';
 import { forkJoin } from 'rxjs';
+import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,12 +11,16 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private router: Router, private httpService: HttpService) {}
+  constructor(
+    private router: Router,
+    private httpClientService: HttpClientService,
+    private httpHorseService: HttpHorseService
+  ) {}
 
   ngOnInit(): void {
     forkJoin([
-      this.httpService.getClients(),
-      this.httpService.getHorses(),
+      this.httpClientService.getClients(),
+      this.httpHorseService.getHorses(),
     ]).subscribe(([dataClient, dataHorses]) => {
       this.router.navigate(['admin/calendrier']);
     });

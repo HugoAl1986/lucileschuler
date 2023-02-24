@@ -76,6 +76,6 @@ class HorseController extends AbstractController
 
         return $this->json($response["content"], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        }, AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'age','client']]);
+        }, AbstractNormalizer::ATTRIBUTES => ['id', 'nom', 'age','client' => ['id', 'nom', 'prenom']] ]);
     }
 }

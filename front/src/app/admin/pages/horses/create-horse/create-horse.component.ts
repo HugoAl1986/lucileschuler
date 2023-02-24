@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/shared/interfaces/client.interface';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
-import { HttpService } from 'src/app/shared/services/http.service';
+import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
+import { HttpClientService } from 'src/app/shared/services/httpClient.service';
 
 @Component({
   selector: 'app-create-horse',
@@ -11,7 +12,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
   styleUrls: ['./create-horse.component.scss'],
 })
 export class CreateHorseComponent implements OnInit {
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(private httpClientService: HttpClientService, private httpHorseService:HttpHorseService, private router: Router) {}
 
   horseForm = new FormGroup({
     nom: new FormControl('', Validators.required),
@@ -22,13 +23,15 @@ export class CreateHorseComponent implements OnInit {
   clients: Client[];
 
   ngOnInit(): void {
-   this.httpService.clients.subscribe((clients:Client[]) => this.clients = clients);
+    this.httpClientService.clients.subscribe(
+      (clients: Client[]) => (this.clients = clients)
+    );
   }
 
   onSubmit(): void {
     if (this.horseForm.status == 'VALID') {
       this.horseForm.controls['client'].disable();
-      this.httpService
+      this.httpHorseService
         .createHorse(
           this.horseForm.value,
           this.horseForm.controls['client'].value

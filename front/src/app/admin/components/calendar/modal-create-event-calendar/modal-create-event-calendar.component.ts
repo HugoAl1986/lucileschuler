@@ -5,7 +5,7 @@ import {
   FormArray,
   FormBuilder,
 } from '@angular/forms';
-import { Component, Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DateSelectArg } from '@fullcalendar/core';
 import { MatSelectChange } from '@angular/material/select';
@@ -17,9 +17,19 @@ import { clients } from './datasClients.mock';
   styleUrls: ['./modal-create-event-calendar.component.scss'],
 })
 export class ModalCreateEventCalendar {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public datasEvent: DateSelectArg,
+    private fb: FormBuilder
+  ) {
+    console.log(datasEvent);
+  }
+
   clients: Array<Object> = clients;
   selectedClient;
   choosenCheval: any;
+  format: number = 24;
+  public filteredClients = this.clients.slice();
+
 
   eventForm = this.fb.group({
     title: new FormControl('', Validators.required),
@@ -37,14 +47,6 @@ export class ModalCreateEventCalendar {
       }),
     ]),
   });
-
-  format: number = 24;
-  public filteredClients = this.clients.slice();
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public datasEvent: DateSelectArg,
-    private fb: FormBuilder
-  ) {}
 
   get otherFields(): FormArray {
     return this.eventForm.get('otherFields') as FormArray;
@@ -64,8 +66,8 @@ export class ModalCreateEventCalendar {
       nomRue: this.eventForm.value['otherFields'][0]['nomRue'],
       codePostal: this.eventForm.value['otherFields'][0]['codePostal'],
       ville: this.eventForm.value['otherFields'][0]['ville'],
-      nom : this.eventForm.value['nomClient']['nom'],
-      prenom : this.eventForm.value['nomClient']['prenom'],
+      nom: this.eventForm.value['nomClient']['nom'],
+      prenom: this.eventForm.value['nomClient']['prenom'],
     });
   }
 
@@ -77,7 +79,7 @@ export class ModalCreateEventCalendar {
       nomRue: event.value['nomRue'],
       codePostal: event.value['codePostal'],
       ville: event.value['ville'],
-      cheval: event.value['cheval']
+      cheval: event.value['cheval'],
     };
     this.eventForm.controls['otherFields'].setValue([this.selectedClient]);
     this.eventForm.controls['otherFields'].patchValue([

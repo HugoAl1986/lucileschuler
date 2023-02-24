@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { faUser, faClock} from '@fortawesome/free-regular-svg-icons';
+import { faUser, faClock } from '@fortawesome/free-regular-svg-icons';
 import {
   faHorseHead,
   faHouse,
-  faLocation
+  faLocation,
 } from '@fortawesome/free-solid-svg-icons';
-import { UtilsService } from 'src/app/admin/utils.service';
+import { UtilsService } from 'src/app/shared/utils.service';
 
 @Component({
   selector: 'app-modal-watch-event',

@@ -45,8 +45,11 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="container-client">
-      <div class="container-client-nom">
+
+    <div
+      class="container-client-cheval d-flex justify-content-start w-100 flex-nowrap"
+    >
+      <div>
         <h5>Client</h5>
         <mat-form-field appearance="outline">
           <mat-label>Nom</mat-label>
@@ -74,70 +77,51 @@
             index as i
           "
         >
-          <div class="container-cheval">
-            <h5>Cheval</h5>
-            <mat-form-field appearance="outline">
-              <mat-label>cheval</mat-label>
-              <mat-select
-                (selectionChange)="onClickCheval($event)"
-                [value]="choosenCheval"
+          <h5>Cheval</h5>
+          <mat-form-field appearance="outline">
+            <mat-label>cheval</mat-label>
+            <mat-select
+              (selectionChange)="onClickHorse($event)"
+              [value]="choosenHorse"
+            >
+              <mat-option
+                [value]="horse"
+                *ngFor="let horse of selectedClient.horses; index as i"
+                >{{ horse.nom }}</mat-option
               >
-                <mat-option
-                  [value]="cheval"
-                  *ngFor="let cheval of selectedClient['cheval']; index as i"
-                  >{{ cheval }}</mat-option
-                >
-              </mat-select>
-            </mat-form-field>
-          </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="container-client">
+      <div class="container-ecurie">
+        <h5>Ecurie</h5>
+        <mat-form-field appearance="outline">
+          <mat-label>Ecurie</mat-label>
+          <input matInput formControlName="ecurie" />
+        </mat-form-field>
+      </div>
+      <div class="container-adresse">
+        <h5>Adresse intervention</h5>
 
-          <div class="container-adresse">
-            <h5>Adresse intervention</h5>
-            <div class="container-ecurie">
-              <mat-form-field appearance="outline">
-                <mat-label>Nom écurie</mat-label>
-                <mat-select [value]="selectedClient['ecurie']">
-                  <mat-option [value]="selectedClient['ecurie']">{{
-                    selectedClient["ecurie"]
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="container-ecurie-adresse">
-              <mat-form-field class="ecurie-number" appearance="outline">
-                <mat-label>Numéro rue</mat-label>
-                <mat-select [value]="selectedClient['rue']">
-                  <mat-option [value]="selectedClient['rue']">{{
-                    selectedClient["rue"]
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field class="ecurie-other" appearance="outline">
-                <mat-label>Nom rue</mat-label>
-                <mat-select [value]="selectedClient['nomRue']">
-                  <mat-option [value]="selectedClient['nomRue']">{{
-                    selectedClient["nomRue"]
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="ecurie-number">
-                <mat-label>Code Postal</mat-label>
-                <mat-select [value]="selectedClient['codePostal']">
-                  <mat-option value="selectedClient['codePostal']">{{
-                    selectedClient["codePostal"]
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="ecurie-other">
-                <mat-label>Ville</mat-label>
-                <mat-select [value]="selectedClient['ville']">
-                  <mat-option value="selectedClient['ville']">{{
-                    selectedClient["ville"]
-                  }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
+        <div class="container-ecurie-adresse">
+          <mat-form-field appearance="outline">
+            <mat-label>Numéro Rue</mat-label>
+            <input matInput formControlName="rue" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label> Rue</mat-label>
+            <input matInput formControlName="nomRue" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Code Postal</mat-label>
+            <input matInput formControlName="codePostal" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ville</mat-label>
+            <input matInput formControlName="ville" />
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -149,7 +133,6 @@
       [disabled]="!eventForm.valid"
       mat-raised-button
       color="primary"
-      mat-dialog-close
     >
       Valider
     </button>

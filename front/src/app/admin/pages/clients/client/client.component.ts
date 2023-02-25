@@ -1,9 +1,9 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Client } from 'src/app/shared/interfaces/client.interface';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 
 @Component({
   selector: 'app-client',

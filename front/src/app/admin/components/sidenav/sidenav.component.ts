@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHorseHead } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/auth/auth.service';
-import { UtilsService } from '../../../shared/utils.service';
+import { UtilsService } from '../../../shared/services/utils.service';
 
 @Component({
   selector: 'app-sidenav',

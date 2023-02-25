@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Client } from 'src/app/shared/interfaces/client.interface';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
 import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 
 @Component({
   selector: 'app-create-horse',
@@ -12,7 +12,11 @@ import { HttpClientService } from 'src/app/shared/services/httpClient.service';
   styleUrls: ['./create-horse.component.scss'],
 })
 export class CreateHorseComponent implements OnInit {
-  constructor(private httpClientService: HttpClientService, private httpHorseService:HttpHorseService, private router: Router) {}
+  constructor(
+    private httpClientService: HttpClientService,
+    private httpHorseService: HttpHorseService,
+    private router: Router
+  ) {}
 
   horseForm = new FormGroup({
     nom: new FormControl('', Validators.required),

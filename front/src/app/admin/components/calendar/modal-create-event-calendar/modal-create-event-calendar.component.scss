@@ -56,7 +56,8 @@ div[mat-dialog-content] {
       }
     }
   }
-  .container-cheval {
+  .container-client-cheval {
+    gap:calc(100% - 2 * $input-width);
     mat-form-field {
       width: $input-width;
     }

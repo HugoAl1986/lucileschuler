@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 import { Client } from 'src/app/shared/interfaces/client.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
@@ -28,7 +28,10 @@ export class MatPaginatorCustom extends MatPaginatorIntl {
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit, AfterViewInit {
-  constructor(private httpService: HttpClientService, public dialog: MatDialog) {}
+  constructor(
+    private httpService: HttpClientService,
+    public dialog: MatDialog
+  ) {}
 
   dataSource: MatTableDataSource<Client> = new MatTableDataSource();
   displaySpinner: boolean = true;

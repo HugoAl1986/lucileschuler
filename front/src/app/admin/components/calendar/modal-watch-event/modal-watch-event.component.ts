@@ -6,7 +6,7 @@ import {
   faHouse,
   faLocation,
 } from '@fortawesome/free-solid-svg-icons';
-import { UtilsService } from 'src/app/shared/utils.service';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-modal-watch-event',

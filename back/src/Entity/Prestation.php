@@ -16,6 +16,9 @@ class Prestation
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $title = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
     private ?\DateTimeInterface $start = null;
@@ -37,6 +40,18 @@ class Prestation
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
     }
 
     public function getStart(): ?\DateTimeInterface

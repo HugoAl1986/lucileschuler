@@ -6,23 +6,25 @@ import { Client } from '../interfaces/client.interface';
 import { Horse } from '../interfaces/horse.interface';
 import * as _ from 'lodash';
 import { BehaviourService } from './behaviour.service';
-import { UtilsService } from '../utils.service';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpClientService {
-
-  constructor(private http: HttpClient, private behaviourService:BehaviourService, private utilsService:UtilsService) {
+  constructor(
+    private http: HttpClient,
+    private behaviourService: BehaviourService,
+    private utilsService: UtilsService
+  ) {
     this.horses = this.behaviourService.horses;
     this.clients = this.behaviourService.clients;
     this.url = this.utilsService.urlApi;
   }
 
-  horses:BehaviorSubject<Horse[]>;
-  clients:BehaviorSubject<Client[]>;
-  url:string;
-  
+  horses: BehaviorSubject<Horse[]>;
+  clients: BehaviorSubject<Client[]>;
+  url: string;
 
   loggin(datas: User) {
     return this.http.post<string>(this.url + 'login_check', datas);
@@ -83,6 +85,4 @@ export class HttpClientService {
       })
     );
   }
-
-  
 }

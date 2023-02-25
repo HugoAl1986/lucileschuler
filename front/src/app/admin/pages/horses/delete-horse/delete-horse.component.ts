@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
 import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 
 @Component({
   selector: 'app-delete-horse',

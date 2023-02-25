@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Client } from 'src/app/shared/interfaces/client.interface';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 
 @Component({
   selector: 'app-dialog-delete-client',

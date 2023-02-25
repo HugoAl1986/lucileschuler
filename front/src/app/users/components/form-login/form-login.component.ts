@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { GlobalService } from 'src/app/shared/services/global.service';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({

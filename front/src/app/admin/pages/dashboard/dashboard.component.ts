@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClientService } from 'src/app/shared/services/httpClient.service';
-import { UtilsService } from '../../../shared/utils.service';
+import { HttpClientService } from 'src/app/shared/services/http-client.service';
+import { UtilsService } from '../../../shared/services/utils.service';
 import { forkJoin } from 'rxjs';
 import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
 

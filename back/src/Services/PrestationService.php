@@ -37,7 +37,6 @@ class PrestationService
         if(!empty($startPrestationFromDB) || !empty($endPrestationFromDB)){
             return ['content' => 'une prestation existe déja dans ce créneau horaire', "status_code" => 400];
         };
-        dd("die");
         try {
             $this->prestationRepository->save($prestation, true);
         } catch (\Exception $e) {
@@ -88,5 +87,22 @@ class PrestationService
         
 
         return ["content" => $prestations, "status_code" => 200];
+    }
+
+    public function removePrestation($id_prestation): array
+    {
+        $prestation = $this->prestationRepository->find($id_prestation);
+
+        if (!$prestation) {
+            return ["content" => "la prestation n'existe pas en DB !!", "status_code" => 404];
+        }
+
+        try {
+            $this->prestationRepository->remove($prestation, true);
+        } catch (\Exception $e) {
+            return $this->functions->messageErreur($e, 'Une erreur est survenue lors de la suppression du client');
+        }
+
+        return ["content" => "l'intervention " . $prestation->getTitle() . " a bien été supprimé !", "status_code" => 200];
     }
 }

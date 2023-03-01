@@ -1,6 +1,6 @@
 
 <div class="container-parent">
-    <full-calendar class="m-5" [options]="calendarOptions">
+    <full-calendar *ngIf="calendarOptions" class="m-5" [options]="calendarOptions">
     </full-calendar>
 </div>
 

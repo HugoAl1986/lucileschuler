@@ -17,7 +17,7 @@ import { RequestInterceptor } from './shared/services/request.interceptor';
     AppComponent,
     LoginComponent,
     AccueilComponent,
-    FormLoginComponent,
+    FormLoginComponent
   ],
   imports: [
     BrowserModule,

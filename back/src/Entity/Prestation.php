@@ -5,8 +5,7 @@ namespace App\Entity;
 use App\Repository\PrestationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Context;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+
 
 #[ORM\Entity(repositoryClass: PrestationRepository::class)]
 class Prestation
@@ -20,11 +19,10 @@ class Prestation
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
     private ?\DateTimeInterface $start = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
+    //#[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
     private ?\DateTimeInterface $end = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]

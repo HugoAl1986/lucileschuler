@@ -40,7 +40,7 @@ import { EditHorseComponent } from './pages/horses/edit-horse/edit-horse.compone
     HorseComponent,
     CreateHorseComponent,
     DeleteHorseComponent,
-    EditHorseComponent,
+    EditHorseComponent
   ],
   imports: [
     CommonModule,

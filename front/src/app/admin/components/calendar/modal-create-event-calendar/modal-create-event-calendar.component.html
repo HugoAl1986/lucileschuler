@@ -10,39 +10,43 @@
   >
     <div class="container-info">
       <h5>Informations</h5>
-      <div class="container-title">
-        <mat-form-field appearance="outline">
-          <mat-label>Titre</mat-label>
-          <input matInput formControlName="title" />
-        </mat-form-field>
-      </div>
-      <div class="container-hours d-flex flex-nowrap">
-        <mat-form-field appearance="outline">
-          <mat-label>Heure de début</mat-label>
-          <input
-            matInput
-            name="startTime"
-            formControlName="startTime"
-            [format]="format"
-            [ngxMatTimepicker]="pickerStart"
-            readonly
-          />
-          <mat-icon matSuffix (click)="pickerStart.open()"
-            >watch_later</mat-icon
-          >
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Heure de fin</mat-label>
-          <input
-            matInput
-            name="endTime"
-            formControlName="endTime"
-            [format]="format"
-            [ngxMatTimepicker]="pickerEnd"
-            readonly
-          />
-          <mat-icon matSuffix (click)="pickerEnd.open()">watch_later</mat-icon>
-        </mat-form-field>
+      <div formGroupName="intervention" class="d-flex flex-wrap">
+        <div class="container-title">
+          <mat-form-field appearance="outline">
+            <mat-label>Titre</mat-label>
+            <input matInput formControlName="title" />
+          </mat-form-field>
+        </div>
+        <div class="container-hours d-flex flex-nowrap">
+          <mat-form-field appearance="outline">
+            <mat-label>Heure de début</mat-label>
+            <input
+              matInput
+              name="start"
+              formControlName="start"
+              [format]="format"
+              [ngxMatTimepicker]="pickerStart"
+              readonly
+            />
+            <mat-icon matSuffix (click)="pickerStart.open()"
+              >watch_later</mat-icon
+            >
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Heure de fin</mat-label>
+            <input
+              matInput
+              name="end"
+              formControlName="end"
+              [format]="format"
+              [ngxMatTimepicker]="pickerEnd"
+              readonly
+            />
+            <mat-icon matSuffix (click)="pickerEnd.open()"
+              >watch_later</mat-icon
+            >
+          </mat-form-field>
+        </div>
       </div>
     </div>
 
@@ -95,34 +99,45 @@
       </div>
     </div>
     <div class="container-client">
-      <div class="container-ecurie">
-        <h5>Ecurie</h5>
-        <mat-form-field appearance="outline">
-          <mat-label>Ecurie</mat-label>
-          <input matInput formControlName="ecurie" />
-        </mat-form-field>
-      </div>
-      <div class="container-adresse">
-        <h5>Adresse intervention</h5>
-
-        <div class="container-ecurie-adresse">
+      <div formGroupName="adresseIntervention">
+        <div class="container-ecurie">
+          <h5>Ecurie</h5>
           <mat-form-field appearance="outline">
-            <mat-label>Numéro Rue</mat-label>
-            <input matInput formControlName="rue" />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label> Rue</mat-label>
-            <input matInput formControlName="nomRue" />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Code Postal</mat-label>
-            <input matInput formControlName="codePostal" />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Ville</mat-label>
-            <input matInput formControlName="ville" />
+            <mat-label>Ecurie</mat-label>
+            <input matInput formControlName="nom_ecurie" />
           </mat-form-field>
         </div>
+        <div class="container-adresse">
+          <h5>Adresse intervention</h5>
+          <div class="container-ecurie-adresse">
+            <mat-form-field appearance="outline">
+              <mat-label>Numéro Rue</mat-label>
+              <input type="number" matInput formControlName="numero_rue" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label> Rue</mat-label>
+              <input matInput formControlName="rue" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Code Postal</mat-label>
+              <input type="number" matInput formControlName="code_postal" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Ville</mat-label>
+              <input matInput formControlName="ville" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h5>Prix</h5>
+        <mat-form-field>
+          <mat-select formControlName="prix" [(value)]="selectedPrix">
+            <mat-option *ngFor="let pri of prix" [value]="pri">
+              {{ pri.intitule }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
   </div>
@@ -133,6 +148,7 @@
       [disabled]="!eventForm.valid"
       mat-raised-button
       color="primary"
+      [mat-dialog-close]="closeDialog"
     >
       Valider
     </button>

@@ -20,7 +20,6 @@ h5 {
 div[mat-dialog-content] {
   .container-info {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     h5 {
       flex-basis: 100%;
@@ -32,6 +31,7 @@ div[mat-dialog-content] {
       }
     }
     .container-hours {
+      justify-content: space-between;
       gap: calc(100% - 2 * $input-width);
       flex-basis: 100%;
       mat-form-field {

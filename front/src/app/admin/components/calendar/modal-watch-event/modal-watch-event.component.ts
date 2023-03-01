@@ -6,7 +6,6 @@ import {
   faHouse,
   faLocation,
 } from '@fortawesome/free-solid-svg-icons';
-import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-modal-watch-event',
@@ -14,11 +13,8 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
   styleUrls: ['./modal-watch-event.component.scss'],
 })
 export class ModalWatchEventComponent implements OnInit {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public datasEvent,
-    private utilsService: UtilsService
-  ) {}
-  date: Date = this.datasEvent.start;
+  constructor(@Inject(MAT_DIALOG_DATA) public datasEvent) {}
+  date:Date
   dateFormated = {
     day: '',
     hours: '',
@@ -48,19 +44,16 @@ export class ModalWatchEventComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dateFormated['day'] = this.utilsService.formatDate(this.date).date;
-    this.dateFormated['hours'] = this.utilsService.formatDate(this.date).hours;
-
+    this.date = new Date(this.datasEvent.start.replace('Z',''));
+    console.log(this.datasEvent);
     this.datasDisplay[0][
       'text'
     ] = `${this.datasEvent['extendedDatas']['prenom']} ${this.datasEvent['extendedDatas']['nom']}`;
     this.datasDisplay[1]['text'] = this.datasEvent['extendedDatas']['cheval'];
-    this.datasDisplay[2]['text'] = this.datasEvent['extendedDatas']['ecurie'];
+    this.datasDisplay[2]['text'] = this.datasEvent['extendedDatas']['adresseIntervention']['nomEcurie'];
     this.datasDisplay[3][
       'text'
-    ] = `${this.datasEvent['extendedDatas']['rue']} ${this.datasEvent['extendedDatas']['nomRue']} ${this.datasEvent['extendedDatas']['codePostal']} ${this.datasEvent['extendedDatas']['ville']}`;
-    this.datasDisplay[4][
-      'text'
-    ] = `${this.dateFormated['day']} à ${this.dateFormated['hours']}`;
+    ] = `${this.datasEvent['extendedDatas']['adresseIntervention']['numeroRue']} ${this.datasEvent['extendedDatas']['adresseIntervention']['rue']} ${this.datasEvent['extendedDatas']['adresseIntervention']['codePostal']} ${this.datasEvent['extendedDatas']['adresseIntervention']['ville']}`;
+    this.datasDisplay[4]['text'] = `${this.date.toLocaleString('fr-FR')}`;
   }
 }

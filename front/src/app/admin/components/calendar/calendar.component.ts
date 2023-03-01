@@ -9,7 +9,7 @@ import {
   CalendarOptions,
   DateSelectArg,
   EventClickArg,
-  EventApi,
+  EventApi
 } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -17,6 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCreateEventCalendar } from './modal-create-event-calendar/modal-create-event-calendar.component';
 import { ModalEditEventCalendarComponent } from './modal-edit-event-calendar/modal-edit-event-calendar.component';
 import { AuthService } from 'src/app/shared/auth/auth.service';
+import { BehaviourService } from 'src/app/shared/services/behaviour.service';
+import { Intervention } from 'src/app/shared/interfaces/intervention.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -27,39 +29,30 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
 export class CalendarComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
-    public dialog: MatDialog, 
-    private authService:AuthService
+    public dialog: MatDialog,
+    private authService: AuthService,
+    private behaviourService: BehaviourService
   ) {}
-
-  calendarVisible = true;
-  calendarOptions: CalendarOptions = {
-    locales: [{ code: 'fr' }],
+  
+  calendarOptions:any;
+  datasEvent:Intervention[];
+  currentEvents: EventApi[] = [];
+initCalendar() : void {
+  this.calendarOptions = {
+    locales: [{ code: 'fr' ,timeZone:'Europe/Paris'}],
+   // timeZone: 'UTC',
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin],
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,dayGridWeek,dayGridDay',
     },
-    events: [
-      {
-        title: 'R.Bardet',
-        start: '2023-02-04T10:30:00',
-        end: '2023-02-04T16:30:00',
-        nom: 'Bardet',
-        prenom: 'Romain',
-        cheval : 'Pinot',
-        ecurie : 'les ecuries de Romain',
-        nomRue: 'rue du mesnil',
-        rue: 48,
-        ville : 'Brioude',
-        codePostal : '73200'
-      },
-    ],
     buttonText: {
       day: "Aujourd'hui",
       month: 'Mois',
       week: 'Semaine',
     },
+    events:this.datasEvent,
     initialView: 'dayGridMonth',
     eventDisplay: 'list-item',
     initialEvents: '',
@@ -74,17 +67,17 @@ export class CalendarComponent implements OnInit {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
+    
   };
-  currentEvents: EventApi[] = [];
+}
+  
 
   ngOnInit(): void {
-    this.calendarOptions;
+    this.behaviourService.interventions.subscribe((interventions:Intervention[]) => {
+      this.datasEvent = interventions;
+      this.initCalendar();
+
+    })
   }
 
   openDialogCreateEvent(selectInfo: DateSelectArg) {
@@ -108,6 +101,7 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
+    console.log(clickInfo);
     this.openDialogEditEvent(clickInfo);
     // clickInfo.event.remove();
   }

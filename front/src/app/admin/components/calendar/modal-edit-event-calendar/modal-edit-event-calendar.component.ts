@@ -1,38 +1,40 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
+import { EventClickArg } from '@fullcalendar/core';
+import { HttpInterventionService } from 'src/app/shared/services/http-intervention.service';
 import { ModalWatchEventComponent } from '../modal-watch-event/modal-watch-event.component';
 
 @Component({
   selector: 'app-modal-edit-event-calendar',
   templateUrl: './modal-edit-event-calendar.component.html',
-  styleUrls: ['./modal-edit-event-calendar.component.scss']
+  styleUrls: ['./modal-edit-event-calendar.component.scss'],
 })
-export class ModalEditEventCalendarComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public datasEvent: EventClickArg, public dialog: MatDialog){
-  }
+export class ModalEditEventCalendarComponent {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public datasEvent: EventClickArg,
+    public dialog: MatDialog,
+    private interventionService:HttpInterventionService
+  ) {}
 
   datasFromCalendar = {
-    title : this.datasEvent.event.title,
-    start : new Date(this.datasEvent.event.startStr),
-    end : new Date(this.datasEvent.event.endStr),
-    extendedDatas : this.datasEvent.event.extendedProps
+    title: this.datasEvent.event.title,
+    start: this.datasEvent.event.startStr,
+    end: this.datasEvent.event.endStr,
+    extendedDatas: this.datasEvent.event.extendedProps,
+  };
+
+  deleteEvent(): void {
+    console.log(this.datasEvent.event.extendedProps);
+    this.interventionService.deleteIntervention(this.datasEvent.event.extendedProps['idIntervention']).subscribe((data:string) => {
+      this.datasEvent.event.remove();
+      console.log(data);
+    })
+    
   }
 
- ngOnInit(): void {
- }
-
- deleteEvent(): void{
-  this.datasEvent.event.remove();
- }
-
- openWatchEventModal() : void {
-  this.dialog.open(ModalWatchEventComponent,{
-    data : this.datasFromCalendar
-  })
-    
-  
- }
-
+  openWatchEventModal(): void {
+    this.dialog.open(ModalWatchEventComponent, {
+      data: this.datasFromCalendar,
+    });
+  }
 }

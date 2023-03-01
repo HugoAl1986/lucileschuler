@@ -27,9 +27,9 @@ class PrestationController extends AbstractController
         $response = $this->prestationService->createPrestation($prestation, $id_horse, $id_prix);
 
 
-        return $this->json([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+        return $this->json([$response["content"]], $response["status_code"], ['Content-Type' => 'application/json; charset=utf-8'], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        },AbstractNormalizer::ATTRIBUTES => ["id", "start", "end", "horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']]]]);;
+        },AbstractNormalizer::ATTRIBUTES => ["id", "start", "end","title", "horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']]]]);;
     }
 
     #[Route('/api/admin/update_prestation/{id_horse}/{id_prix}/{id_prestation}', name: 'api_update_prestation')]
@@ -40,7 +40,7 @@ class PrestationController extends AbstractController
         $response = $this->prestationService->updatePrestation($prestation, $id_horse, $id_prix, $id_prestation);
 
 
-        return $this->json(["message" => $response["content"]], $response["status_code"]);;
+        return $this->json(["message" => $response["content"]], $response["status_code"], ['Content-Type' => 'application/json; charset=utf-8']);;
     }
 
     #[Route('/api/admin/prestations', name: 'api_prestations')]
@@ -50,7 +50,14 @@ class PrestationController extends AbstractController
 
         return $this->json([$response["content"]], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        }, AbstractNormalizer::ATTRIBUTES => ["id", "start", "end", "horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']]]]);;
+        }, AbstractNormalizer::ATTRIBUTES => ["id", "start", "end","title","adressePrestation","horse" => ['id', 'nom', 'client' => ['id', 'nom', 'prenom']],"prix"]]);
+    }
+
+    #[Route('/api/admin/remove_prestation/{id_prestation}', name: 'remove_prestation')]
+    public function removePrestation($id_prestation): JsonResponse
+    {
+        $response =  $this->prestationService->removePrestation($id_prestation);
+        return $this->json($response["content"], $response["status_code"], ['Content-Type' => 'application/json; charset=utf-8']);
     }
 
     

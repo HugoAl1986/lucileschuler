@@ -45,7 +45,7 @@ export class SidenavComponent {
 
   onClick(i: number): void {
     this.changeColor.splice(0, 1, i);
-    if (i == 4) {
+    if (i == 5) {
       this.authService.removeLocalStorageToken();
       this.authService.removeLocalStorageToken();
       this.router.navigate(['/login']);

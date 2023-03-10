@@ -82,9 +82,7 @@ class PrestationService
             $prestations = $this->prestationRepository->findAll();
         } catch (\Exception $e) {
             return $this->functions->messageErreur($e, 'Erreur lors de la récupération des données');
-        }
-
-        
+        } 
 
         return ["content" => $prestations, "status_code" => 200];
     }

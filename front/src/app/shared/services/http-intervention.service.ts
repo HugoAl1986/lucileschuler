@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, tap, BehaviorSubject } from 'rxjs';
 import { Intervention } from '../interfaces/intervention.interface';
 import { UtilsService } from './utils.service';
 import * as _ from 'lodash';
@@ -11,6 +11,7 @@ import { BehaviourService } from './behaviour.service';
 })
 export class HttpInterventionService {
   urlApi: string;
+  interventions:BehaviorSubject<Intervention[]>;
 
   constructor(
     private http: HttpClient,
@@ -18,12 +19,13 @@ export class HttpInterventionService {
     private behaviourService: BehaviourService
   ) {
     this.urlApi = this.utils.urlApi;
+    this.interventions = this.behaviourService.interventions;
   }
 
   createIntervention(
     intervention: Intervention,
     id_horse: number,
-    id_prix
+    id_prix:number
   ): Observable<Intervention> {
     return this.http.post(
       this.urlApi + `admin/create_prestation/${id_horse}/${id_prix}`,
@@ -35,20 +37,22 @@ export class HttpInterventionService {
     return this.http.get(this.urlApi + `admin/prestations`).pipe(
       map((interventions: any) => {
         const newInterventionArray = [];
-        _.forEach(interventions[0], (data: Intervention) => {
+        _.forEach(interventions, (data: Intervention) => {
           const interventionData = {
-            idIntervention: data.id,
+            id: data.id,
             title: data.title,
             start: data.start,
             end: data.end,
             nom: data.horse.client.nom,
             prenom: data.horse.client.prenom,
             cheval: data.horse.nom,
+            age_cheval : data.horse.age,
+            report : data.report,
             adresseIntervention: data.adressePrestation,
           };
           newInterventionArray.push(interventionData);
         });
-        this.behaviourService.interventions.next(newInterventionArray);
+        this.interventions.next(newInterventionArray);
         return newInterventionArray;
       })
     );
@@ -57,10 +61,13 @@ export class HttpInterventionService {
   deleteIntervention(id_prestation:number):Observable<any>{
     return this.http.delete(this.urlApi + `admin/remove_prestation/${id_prestation}`).pipe(
       tap(() => {
-        const interventions = this.behaviourService.interventions.value;
-        _.remove(interventions, (intervention:Intervention) => {
-          intervention.id == id_prestation;
-        })
+        const interventions = this.interventions.value;
+         _.remove(interventions, (intervention:any) => {
+          console.log(intervention);
+          return intervention.id == id_prestation;
+        });
+        console.log(interventions);
+        this.behaviourService.interventions.next(interventions);
       })
     )
   }

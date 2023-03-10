@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './admin/components/calendar/calendar.component';
+import { CalendarComponent } from './admin/pages/calendar/calendar.component';
 import { ClientComponent } from './admin/pages/clients/client/client.component';
 import { ClientsComponent } from './admin/pages/clients/clients.component';
 import { CreateHorseComponent } from './admin/pages/horses/create-horse/create-horse.component';
@@ -11,6 +11,8 @@ import { authGuard } from './shared/auth/auth.guard';
 import { AccueilComponent } from './users/pages/accueil/accueil.component';
 import { LoginComponent } from './users/pages/login/login.component';
 import { EditHorseComponent } from './admin/pages/horses/edit-horse/edit-horse.component';
+import { InterventionsComponent } from './admin/pages/interventions/interventions.component';
+import { ReportComponent } from './admin/components/report/report.component';
 
 const routes: Routes = [
   {
@@ -54,6 +56,14 @@ const routes: Routes = [
             path: 'horses/:id',
             component: EditHorseComponent,
           },
+          {
+            path: 'interventions',
+            component: InterventionsComponent,
+          },
+          {
+            path:'interventions/report/:id',
+            component:ReportComponent
+          }
         ],
       },
     ],

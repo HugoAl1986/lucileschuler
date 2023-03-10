@@ -13,8 +13,10 @@ export class ModalEditEventCalendarComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public datasEvent: EventClickArg,
     public dialog: MatDialog,
-    private interventionService:HttpInterventionService
-  ) {}
+    private interventionService: HttpInterventionService
+  ) {
+    console.log(this.datasEvent)
+  }
 
   datasFromCalendar = {
     title: this.datasEvent.event.title,
@@ -25,11 +27,12 @@ export class ModalEditEventCalendarComponent {
 
   deleteEvent(): void {
     console.log(this.datasEvent.event.extendedProps);
-    this.interventionService.deleteIntervention(this.datasEvent.event.extendedProps['idIntervention']).subscribe((data:string) => {
-      this.datasEvent.event.remove();
-      console.log(data);
-    })
-    
+    this.interventionService
+      .deleteIntervention(parseInt(this.datasEvent.event.id))
+      .subscribe((data: string) => {
+        this.datasEvent.event.remove();
+        console.log(data);
+      });
   }
 
   openWatchEventModal(): void {

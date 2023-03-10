@@ -1,4 +1,3 @@
-import { Intervention } from "./intervention.interface";
 
 export interface AdresseIntervention {
     nom_ecurie?:string;

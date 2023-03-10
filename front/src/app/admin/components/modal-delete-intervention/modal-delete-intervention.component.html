@@ -1,0 +1,7 @@
+<div mat-dialog-content>Veux tu supprimer {{ data.title }} ?</div>
+<div mat-dialog-actions class="d-flex justify-content-center">
+  <button mat-button mat-dialog-close>Non</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="removeIntervention()">
+    Oui
+  </button>
+</div>

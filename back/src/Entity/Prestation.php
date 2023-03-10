@@ -35,6 +35,9 @@ class Prestation
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     private ?Prix $prix = null;
 
+    #[ORM\OneToOne(mappedBy: 'prestation', cascade: ['persist', 'remove'])]
+    private ?Report $report = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -108,6 +111,23 @@ class Prestation
     public function setPrix(?Prix $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getReport(): ?Report
+    {
+        return $this->report;
+    }
+
+    public function setReport(Report $report): self
+    {
+        // set the owning side of the relation if necessary
+        if ($report->getPrestation() !== $this) {
+            $report->setPrestation($this);
+        }
+
+        $this->report = $report;
 
         return $this;
     }

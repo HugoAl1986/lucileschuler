@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Horse } from 'src/app/shared/interfaces/horse.interface';
 import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
-import { DeleteHorseComponent } from './delete-horse/delete-horse.component';
+import { DeleteHorseComponent } from '../../components/delete-horse/delete-horse.component';
 
 @Component({
   selector: 'app-horse',
@@ -13,7 +13,10 @@ import { DeleteHorseComponent } from './delete-horse/delete-horse.component';
   styleUrls: ['./horse.component.scss'],
 })
 export class HorseComponent {
-  constructor(private httpHorseService: HttpHorseService, private dialog: MatDialog) {}
+  constructor(
+    private httpHorseService: HttpHorseService,
+    private dialog: MatDialog
+  ) {}
 
   dataSource: MatTableDataSource<Horse> = new MatTableDataSource();
   displaySpinner: boolean = true;

@@ -1,0 +1,65 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+  <h2 class="mat-h2 w-100 pb-3" *ngIf="datasForReport">
+    Rapport d'intervention du
+    <span>{{ datasForReport["start"] | date : "dd/MM/yyyy" : "GMT" }}</span>
+    pour le cheval
+    <span
+      >{{ datasForReport["cheval"] | titlecase }}
+      {{ datasForReport["age_cheval"] }} ans</span
+    >
+  </h2>
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-100">
+      <mat-label>Infos cheval</mat-label>
+      <input matInput formControlName="horse_infos" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Mode de vie</mat-label>
+      <input matInput formControlName="lifestyle" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Alimentation</mat-label>
+      <input matInput formControlName="food" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Discipilne</mat-label>
+      <input matInput formControlName="activities" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Lieu d'intervention</mat-label>
+      <input matInput formControlName="place_intervention" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Propriétaire</mat-label>
+      <input matInput formControlName="owner" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Motifs de la séance</mat-label>
+      <input matInput formControlName="reasons_for_session" />
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Objectifs de la séance</mat-label>
+      <textarea matInput formControlName="goals_of_session"></textarea>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Observations</mat-label>
+      <textarea matInput formControlName="observations"></textarea>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Attitude du cheval</mat-label>
+      <textarea matInput formControlName="attitude_of_horse"></textarea>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Conseils</mat-label>
+      <textarea matInput formControlName="advice"></textarea>
+    </mat-form-field>
+    <div class="footer d-flex justify-content-center align-items-center">
+      <a [routerLink]="['/admin/interventions']">
+        <button mat-raised-button color="primary">Retour</button>
+      </a>
+      <button mat-raised-button [disabled]="!reportForm.valid" color="accent">
+        Creer
+      </button>
+    </div>
+  </form>
+</div>

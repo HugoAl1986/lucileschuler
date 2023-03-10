@@ -1,20 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormArray } from '@angular/forms';
 import * as _ from 'lodash';
-import {
-  filter,
-  forkJoin,
-  from,
-  map,
-  mergeMap,
-  Observable,
-  of,
-  switchMap,
-  take,
-  tap,
-  toArray,
-} from 'rxjs';
+import { mergeMap, Observable, of } from 'rxjs';
 import { AdresseIntervention } from '../interfaces/adresse-intervention.interface';
 import { Intervention } from '../interfaces/intervention.interface';
 import { BehaviourService } from './behaviour.service';
@@ -47,22 +34,24 @@ export class HttpAdresseInterventionService {
       .pipe(
         mergeMap((intervention: Intervention) => {
           const interventionData = {
-            idIntervention: intervention[0].id,
+            id: intervention[0].id,
             title: intervention[0].title,
             start: intervention[0].start,
             end: intervention[0].end,
             nom: intervention[0].horse.client.nom,
             prenom: intervention[0].horse.client.prenom,
             cheval: intervention[0].horse.nom,
+            report : intervention[0].report,
             adresseIntervention: {},
           };
           this.createAdresseIntervention(
             adresseIntervention,
             parseInt(intervention[0].id)
           ).forEach((adresseIntervention: AdresseIntervention) => {
-            for(var data in adresseIntervention[0]){
-              if(data !== 'prestations'){
-                interventionData['adresseIntervention'][data] = adresseIntervention[0][data];
+            for (var data in adresseIntervention[0]) {
+              if (data !== 'prestations') {
+                interventionData['adresseIntervention'][data] =
+                  adresseIntervention[0][data];
               }
             }
             const newArray = [

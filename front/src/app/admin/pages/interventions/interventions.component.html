@@ -1,0 +1,121 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+  <h2 class="mat-h2">Interventions</h2>
+  <mat-spinner
+    *ngIf="displaySpinner"
+    color="accent"
+    diameter="40"
+  ></mat-spinner>
+  <table
+    *ngIf="!displaySpinner"
+    mat-table
+    matSortStart="desc"
+    matSortDisableClear="true"
+    matSort
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="title">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="tri par titre"
+      >
+        Titre
+      </th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.title | titlecase }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef>Date début</th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.start | date : "dd/MM/yy à HH:mm" : "GMT" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef>Date fin</th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.end | date : "dd/MM/yy à HH:mm" : "GMT" }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="cheval">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        sortActionDescription="tri par cheval"
+      >
+        Cheval
+      </th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.cheval | titlecase }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.nom | titlecase }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Prénom</th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention.prenom | titlecase }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="adresseIntervention">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Adresse Intervention
+      </th>
+      <td mat-cell *matCellDef="let intervention">
+        {{ intervention["adresseIntervention"]["nomEcurie"] | titlecase }} au
+        {{ intervention["adresseIntervention"]["numeroRue"] }}
+        {{ intervention["adresseIntervention"]["rue"] | titlecase }}
+        {{ intervention["adresseIntervention"]["ville"] | titlecase }}
+        {{ intervention["adresseIntervention"]["codePostal"] }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let intervention" justify="center">
+        <!-- <a
+          [routerLink]="['/admin/horses', horse.id]"
+          class="d-inline-block me-2"
+          ><mat-icon fontIcon="edit" color="primary"></mat-icon
+        ></a>  -->
+        <mat-icon
+          fontIcon="delete"
+          color="warn"
+          (click)="openDialog(intervention)"
+        ></mat-icon>
+        <a [routerLink] = "['/admin/interventions/report', intervention.id]">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="report icon"
+            fontIcon="file_present"
+            color="primary"
+          ></mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div
+    *ngIf="dataSource.data.length == 0"
+    class="w-100 p-2 d-flex justify-content-center"
+    style="font-style: italic"
+  >
+    Pas d'interventions
+  </div>
+  <div class="d-flex justify-content-end mt-4 w-100">
+    <mat-paginator
+      [pageSizeOptions]="[20, 30, 40]"
+      showFirstLastButtons
+      color="accent"
+      aria-label="Select page of horses"
+    >
+    </mat-paginator>
+  </div>
+</div>

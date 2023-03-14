@@ -13,12 +13,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './shared/services/request.interceptor';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AccueilComponent,
     FormLoginComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -28,6 +32,7 @@ import { RequestInterceptor } from './shared/services/request.interceptor';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule
+    
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }],
   bootstrap: [AppComponent],

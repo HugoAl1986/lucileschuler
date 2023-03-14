@@ -27,6 +27,8 @@ import { InterventionsComponent } from './pages/interventions/interventions.comp
 import * as fr from '@angular/common/locales/fr';
 import { ModalDeleteInterventionComponent } from './components/modal-delete-intervention/modal-delete-intervention.component';
 import { ReportComponent } from './components/report/report.component';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { ReportComponent } from './components/report/report.component';
     ReactiveFormsModule,
     NgxMatTimepickerModule.setLocale('fr-FR'),
     MatSelectFilterModule,
+    MaterialFileInputModule,
+    PdfViewerModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
 })

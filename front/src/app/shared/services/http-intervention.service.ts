@@ -48,6 +48,7 @@ export class HttpInterventionService {
             cheval: data.horse.nom,
             age_cheval : data.horse.age,
             report : data.report,
+            paid : data.paid,
             adresseIntervention: data.adressePrestation,
           };
           newInterventionArray.push(interventionData);
@@ -66,7 +67,6 @@ export class HttpInterventionService {
           console.log(intervention);
           return intervention.id == id_prestation;
         });
-        console.log(interventions);
         this.behaviourService.interventions.next(interventions);
       })
     )

@@ -21,4 +21,5 @@ export class UtilsService {
 
 
   urlApi: string = 'https://localhost:8000/api/';
+  urlReport : string = 'C:/Users/hugoa/Dev/shiatsu-lulu/back/assets/reports/'
 }

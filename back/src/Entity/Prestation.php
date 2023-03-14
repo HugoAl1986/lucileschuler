@@ -22,7 +22,6 @@ class Prestation
     private ?\DateTimeInterface $start = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    //#[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
     private ?\DateTimeInterface $end = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
@@ -37,6 +36,9 @@ class Prestation
 
     #[ORM\OneToOne(mappedBy: 'prestation', cascade: ['persist', 'remove'])]
     private ?Report $report = null;
+
+    #[ORM\Column]
+    private ?bool $paid = null;
 
     public function getId(): ?int
     {
@@ -128,6 +130,18 @@ class Prestation
         }
 
         $this->report = $report;
+
+        return $this;
+    }
+
+    public function isPaid(): ?bool
+    {
+        return $this->paid;
+    }
+
+    public function setPaid(bool $paid): self
+    {
+        $this->paid = $paid;
 
         return $this;
     }

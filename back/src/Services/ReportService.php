@@ -10,56 +10,68 @@ use DateTimeImmutable;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
-class ReportService {
+class ReportService
+{
 
-    public function __construct(private Functions $functions, private ReportRepository $reportRepository, private PrestationRepository $prestationRepository){
-
+    public function __construct(private Functions $functions, private ReportRepository $reportRepository, private PrestationRepository $prestationRepository)
+    {
     }
 
-    public function createReport(int $id_intervention) : array{
+    public function createReport(int $id_intervention): array
+    {
 
         $numberReport = $this->createNumberReport();
         $prestation = $this->prestationRepository->find($id_intervention);
 
-        if(empty($prestation)){
+        if (empty($prestation)) {
             return ["content" => "Aucune prestation n'exite pour cet Id", "status_code" => 404];
         }
-
         $report = new Report();
-        $report -> setCreatedAt(new \DateTimeImmutable());
-        $report -> setPrestation($prestation);
-        $report -> setNumber($numberReport);
-        $report -> setUrl('../assets/reports/' . $numberReport . '.pdf');
-    
-        try{
-            $this->reportRepository->save($report);
-        } catch(\Exception $e){
-            throw new \Exception ("erreur : " . $e->getMessage());
-        }
-        
-        return ["content" =>$report,"status_code" => 200];
+        $report->setCreatedAt(new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris')));
+        $report->setPrestation($prestation);
+        $report->setNumber($numberReport);
+        $report->setUrl('C:/Users/hugoa/Dev/shiatsu-lulu/front/src/assets/reports/' . $numberReport . '.pdf');
 
+        try {
+            $this->reportRepository->save($report, true);
+        } catch (\Exception $e) {
+            throw new \Exception("erreur : " . $e->getMessage());
+        }
+
+        return ["content" => $report, "status_code" => 200];
     }
 
-    public function createNumberReport() : string{
+    public function createNumberReport(): string
+    {
         $cache = new FilesystemAdapter();
-        $dataFromCache = $cache->get('number_last_report', function(ItemInterface $itemInterface){
-            return null;
-        });
-
+        $numberFromCache = $cache->getItem('number_last_report');
         $date = new DateTimeImmutable();
         $formattedDate = $date->format('Y-m');
-
-        if(empty($dataFromCache)){    
-            return 'R-' . $formattedDate . '-001';
+        if (!$numberFromCache->isHit()) {
+            $numberReport = 'R-' . $formattedDate . '-001';
+            $numberFromCache->set($numberReport);
+            $cache->save($numberFromCache);
+            return $numberReport;
         }
-
-        if($dataFromCache){
-            if(str_contains($dataFromCache,$formattedDate)){
-                $tok = strtok($dataFromCache,'-');
-                dd($tok);
+        if ($cache->hasItem('number_last_report')) {
+            if (str_contains($numberFromCache->get(), $formattedDate)) {
+                $array = explode('-', $numberFromCache->get());
+                $number = (int) end($array);
+                $newNumber = $number + 1 ;
+                $numberCached = '';
+                if (strlen($newNumber) == 1) {
+                    $numberCached = 'R-' . $formattedDate . '-00' . $newNumber;
+                }
+                if (strlen($newNumber) == 2) {
+                    $numberCached = 'R-' . $formattedDate . '-0' . $newNumber;
+                }
+                if (strlen($newNumber) == 3) {
+                    $numberCached = 'R-' . $formattedDate . '-' . $newNumber;
+                }
+                $numberFromCache->set($numberCached);
+                $cache->save($numberFromCache);
+                return $numberCached;
             }
         }
-
     }
 }

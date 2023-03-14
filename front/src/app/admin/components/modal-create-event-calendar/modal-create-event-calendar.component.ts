@@ -35,6 +35,7 @@ export class ModalCreateEventCalendar implements OnInit {
       title: new FormControl('', Validators.required),
       start: new FormControl('', Validators.required),
       end: new FormControl('', Validators.required),
+      paid:new FormControl(false)
     }),
     nomClient: new FormControl('', Validators.required),
     prix: new FormControl('', Validators.required),
@@ -85,7 +86,7 @@ export class ModalCreateEventCalendar implements OnInit {
 
   onSubmit() {
     const calendarApi = this.datasEvent.view.calendar;
-
+    console.log(this.eventForm.value);
     this.eventForm.value.intervention.start =
       this.datasEvent.startStr +
       'T' +
@@ -105,7 +106,7 @@ export class ModalCreateEventCalendar implements OnInit {
         this.eventForm.value.adresseIntervention
       )
       .subscribe(
-        (data) => {
+        (data:any) => {
           this.datasEvent.view.calendar.addEvent(data);
           this.closeDialog = true;
         }

@@ -33,25 +33,28 @@ export class HttpAdresseInterventionService {
       .createIntervention(intervention, id_horse, id_prix)
       .pipe(
         mergeMap((intervention: Intervention) => {
+          console.log
           const interventionData = {
-            id: intervention[0].id,
-            title: intervention[0].title,
-            start: intervention[0].start,
-            end: intervention[0].end,
-            nom: intervention[0].horse.client.nom,
-            prenom: intervention[0].horse.client.prenom,
-            cheval: intervention[0].horse.nom,
-            report : intervention[0].report,
+            id: intervention.id,
+            title: intervention.title,
+            start: intervention.start,
+            end: intervention.end,
+            nom: intervention.horse.client.nom,
+            prenom: intervention.horse.client.prenom,
+            cheval: intervention.horse.nom,
+            report : intervention.report,
+            paid : intervention.paid,
+            age_cheval : intervention.horse.age,
             adresseIntervention: {},
           };
           this.createAdresseIntervention(
             adresseIntervention,
-            parseInt(intervention[0].id)
+            intervention.id
           ).forEach((adresseIntervention: AdresseIntervention) => {
-            for (var data in adresseIntervention[0]) {
+            for (var data in adresseIntervention) {
               if (data !== 'prestations') {
                 interventionData['adresseIntervention'][data] =
-                  adresseIntervention[0][data];
+                  adresseIntervention[data];
               }
             }
             const newArray = [

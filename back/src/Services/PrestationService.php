@@ -79,7 +79,7 @@ class PrestationService
     public function getPrestations(): array
     {
         try {
-            $prestations = $this->prestationRepository->findAll();
+            $prestations = $this->prestationRepository->findBy([], ["start" => 'ASC']);
         } catch (\Exception $e) {
             return $this->functions->messageErreur($e, 'Erreur lors de la récupération des données');
         } 

@@ -1,8 +1,14 @@
-mat-icon{
-    cursor: pointer;
-    transition: transform .2s;
+.actions{
+    mat-icon{
+        cursor: pointer;
+        transition: transform .2s;
+    }
+    
+    mat-icon:hover {
+        transform: scale(1.2); 
+      }
+    
 }
-
-mat-icon:hover {
-    transform: scale(1.2); 
-  }
+#linkReport{
+    cursor: pointer;
+}

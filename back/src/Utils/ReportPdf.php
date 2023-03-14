@@ -183,18 +183,13 @@ class ReportPdf extends Fpdf
         }
     }
 
-    public function createPdf(): array
+    public function createPdf() : void
     {
         $this->AddPage();
         $this->header();
         $this->tabInfos();
         $this->tabInfoHorse();
         $this->main();
-        try {
-            $this->Output('F', $this->url);
-            return ["content" => "Le rapport a bien été créé !"];
-        } catch (\Exception $e) {
-            return ["content" => $e->getMessage()];
-        }
+        $this->Output('F', $this->url);          
     }
 }

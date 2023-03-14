@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { map} from 'rxjs';
 import { Intervention } from 'src/app/shared/interfaces/intervention.interface';
+import { Report } from 'src/app/shared/interfaces/report.interface';
 import { BehaviourService } from 'src/app/shared/services/behaviour.service';
 import { ReportService } from 'src/app/shared/services/report.service';
 
@@ -16,7 +17,8 @@ export class ReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private behaviourService: BehaviourService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router:Router
   ) {}
 
   datasForReport: Intervention;
@@ -38,10 +40,12 @@ export class ReportComponent implements OnInit {
   });
 
   onSubmit(): void {
-    console.log(this.reportForm.value);
     this.reportService
-      .createReport(this.reportForm.value)
-      .subscribe((data: any) => console.log(data));
+      .createReport(this.reportForm.value,this.idIntervention)
+      .subscribe((data: Report) => {
+        this.behaviourService.interventions
+        this.router.navigate(['admin/interventions'])
+      });
   }
 
   ngOnInit(): void {
@@ -49,6 +53,7 @@ export class ReportComponent implements OnInit {
     this.behaviourService.interventions
       .pipe(
         map((interventions: Intervention[]) => {
+          console.log(interventions);
           const inter = _.find(interventions, (intervention: Intervention) => {
             return intervention.id == this.idIntervention;
           });
@@ -58,9 +63,11 @@ export class ReportComponent implements OnInit {
       .subscribe((intervention: Intervention) => {
         this.datasForReport = intervention;
         console.log(this.datasForReport);
-        this.reportForm.patchValue({
-          date_intervention: this.datasForReport['start'],
-        });
+        if(this.datasForReport){
+          this.reportForm.patchValue({
+            date_intervention: this.datasForReport['start'],
+          });
+        }  
       });
   }
 }

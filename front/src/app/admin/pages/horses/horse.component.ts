@@ -24,7 +24,6 @@ export class HorseComponent {
     'nom',
     'age',
     'client',
-    'interventions',
     'actions',
   ];
 

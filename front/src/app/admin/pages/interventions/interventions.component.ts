@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import * as _ from 'lodash';
-import { map } from 'rxjs';
 import { Intervention } from 'src/app/shared/interfaces/intervention.interface';
 import { HttpInterventionService } from 'src/app/shared/services/http-intervention.service';
 import { ModalDeleteInterventionComponent } from '../../components/modal-delete-intervention/modal-delete-intervention.component';
+
 
 @Component({
   selector: 'app-interventions',
@@ -18,10 +18,15 @@ export class InterventionsComponent {
   constructor(
     private httpInterventionService: HttpInterventionService,
     private dialog: MatDialog
-  ) {}
+
+  ) {
+   
+  }
 
   dataSource: MatTableDataSource<Intervention> = new MatTableDataSource();
   displaySpinner: boolean = true;
+  date:Date;
+  dateIntervention:Date;
   displayedColumns: string[] = [
     'title',
     'start',
@@ -30,7 +35,7 @@ export class InterventionsComponent {
     'nom', 
     'prenom',
     'adresseIntervention',
-    //'rapport',
+    'rapport',
     'actions',
   ];
 
@@ -45,9 +50,8 @@ export class InterventionsComponent {
 
   ngOnInit(): void {
     this.httpInterventionService.interventions.subscribe({
-      next: (datas) => {
-        console.log(datas);
-        this.dataSource.data = datas;
+      next: (interventions:Intervention[]) => { 
+        this.dataSource.data = interventions;
         this.displaySpinner = false;
       },
       error: (data: string) => console.log(data),
@@ -58,5 +62,17 @@ export class InterventionsComponent {
      this.dialog.open(ModalDeleteInterventionComponent, {
       data: intervention,
     }); 
+  }
+
+  displayNotifReport(intervention:any) : boolean{
+    this.date = new Date();
+    if(new Date (intervention.start).getTime() + 86400000 < this.date.getTime() && !intervention.report){
+      return false;
+    }else{
+      return true;
+    } 
+  }
+  openFile(intervention:Intervention){
+    window.open(`http://192.168.1.22:8080/${intervention.report.number}.pdf`,'_blank');
   }
 }

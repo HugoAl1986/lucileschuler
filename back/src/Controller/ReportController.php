@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class ReportController extends AbstractController
 {
@@ -32,7 +33,9 @@ class ReportController extends AbstractController
         $urlReport = $datas['content']->getUrl();
 
         $report = new ReportPdf ($horseInfos, $lifestyle, $food, $activities, $dateIntervention, $placeIntervention, $owner, $reasonsForSession, $observations, $goalsOfSession, $attitudeOfHorse, $advice, $urlReport);
-        $result = $report -> createPdf();
-        return $this->json($result["content"],200);
+        $report -> createPdf();
+        return $this->json($datas["content"], $datas["status_code"], [],[ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+            return $object->getId();
+        } ]);;
     }
 }

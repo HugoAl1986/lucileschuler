@@ -26,7 +26,7 @@ class AdressePrestationController extends AbstractController
         $adressePrestation = $this->serialization->deserializeJson($payload, AdressePrestation::class);
         $response = $this->adressePrestationService->createAdressePrestation($adressePrestation, $id_prestation);
 
-        return $this->json([$response["content"]], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+        return $this->json($response["content"], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
         },AbstractNormalizer::ATTRIBUTES => ["id","nomEcurie","numeroRue","rue","ville", "codePostal","complement", "prestations" =>["id"]]]);
     }

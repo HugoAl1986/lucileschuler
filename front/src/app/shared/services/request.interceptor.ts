@@ -16,7 +16,7 @@ export class RequestInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!req.url.endsWith('api/login_check')) {
+    if (!req.url.endsWith('api/login_check') || !req.url.endsWith('api/contact_email')) {
       const newReq = req.clone({ setHeaders : {Authorization : `Bearer ${this.authService.getLocalStorageToken()}`}})
       return next.handle(newReq);
     }

@@ -1,0 +1,7 @@
+<div mat-dialog-content>Es tu sûre de vouloir envoyer le rapport à {{data.prenom | titlecase}} ?</div>
+<div mat-dialog-actions class="d-flex justify-content-center">
+  <button mat-button mat-dialog-close>Non</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="sendReport()" >
+    Oui
+  </button>
+</div>

@@ -1,14 +1,15 @@
-.actions{
-    mat-icon{
-        cursor: pointer;
-        transition: transform .2s;
-    }
-    
-    mat-icon:hover {
-        transform: scale(1.2); 
-      }
-    
-}
-#linkReport{
+@import '../../../../styles/variables';
+
+#linkReport, #sendReport,#makeReport{
     cursor: pointer;
 }
+
+#delete{
+    mat-icon{
+        cursor:pointer;
+    }
+}
+th{
+    background-color:var(--bg-color-th) !important;
+}
+

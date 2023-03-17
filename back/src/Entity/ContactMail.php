@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\ContactMailRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\Context;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
@@ -23,26 +22,20 @@ class ContactMail
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['when_post'])]
     private ?string $email = null;
 
-    #[Groups(['when_post'])]
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[Groups(['when_post'])]
     #[ORM\Column(type:"text")]
     private ?string $message = null;
 
-    #[Groups(['when_post'])]
     #[ORM\Column()]
     private ?bool $messageLu = false;
 
-    #[Groups(['when_post'])]
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[Groups(['when_post'])]
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 

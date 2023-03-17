@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit {
         console.log(this.datasForReport);
         if(this.datasForReport){
           this.reportForm.patchValue({
-            date_intervention: this.datasForReport['start'],
+            date_intervention: this.datasForReport['start']
           });
         }  
       });

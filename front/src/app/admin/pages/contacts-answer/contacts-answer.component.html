@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-between flex-wrap p-5">
+  <h2 class="mat-h2 w-100">Message</h2>
+  <p class="w-100 pt-1">
+    From:
+    <span [ngStyle]="{ color: 'grey' }"
+      >{{ contactMail.prenom && contactMail.prenom }}
+      {{ contactMail.nom && contactMail.nom}}&#x3008;{{
+        contactMail.email
+      }}&#x3009;</span
+    >
+  </p>
+  <p class="w-100 pt-1 pb-1"> 
+    Objet: <span [ngStyle]="{ color: 'grey' }">{{contactMail.titre}} </span>
+  </p>
+  <p class="w-100 pb-1">
+    Date : <span [ngStyle]="{ color: 'grey' }">{{contactMail.date}} </span>
+  </p>
+  <p class="w-100 pb-2">{{ contactMail.message }}</p>
+  <div
+    class="container-button w-100 pb-3 d-flex justify-content-start"
+    *ngIf="!response"
+  >
+    <button mat-raised-button color="primary">Retour</button>
+    <button mat-raised-button color="accent" (click)="displayResponse()">
+      Répondre
+    </button>
+  </div>
+  <div class="pb-2 w-100 d-flex justify-content-start" *ngIf="response">
+    <hr>
+  </div>
+  <div class="w-100" *ngIf="response">
+    <form [formGroup]="responseForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="w-100">
+        <mat-label>Réponse</mat-label>
+        <textarea matInput formControlName="response"></textarea>
+      </mat-form-field>
+      <div class="w-100 d-flex justify-content-start container-button">
+        <button mat-raised-button color="primary">Annuler</button>
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          [disabled]="!responseForm.valid"
+        >
+          Envoyer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

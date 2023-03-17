@@ -5,6 +5,9 @@ import { forkJoin } from 'rxjs';
 import { HttpHorseService } from 'src/app/shared/services/http-horse.service';
 import { HttpPrixService } from 'src/app/shared/services/http-prix.service';
 import { HttpInterventionService } from 'src/app/shared/services/http-intervention.service';
+import { ContactsComponent } from '../contacts/contacts.component';
+import { ContactsService } from 'src/app/shared/services/contacts.service';
+import { ContactMailResponseService } from 'src/app/shared/services/contact-mail-response.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +20,9 @@ export class DashboardComponent implements OnInit {
     private httpClientService: HttpClientService,
     private httpHorseService: HttpHorseService,
     private httpPrixService:HttpPrixService,
-    private httpInterventionService:HttpInterventionService
+    private httpInterventionService:HttpInterventionService,
+    private contactsService:ContactsService,
+    private contactMailResponseService:ContactMailResponseService
   ) {}
 
   ngOnInit(): void {
@@ -25,7 +30,9 @@ export class DashboardComponent implements OnInit {
       this.httpClientService.getClients(),
       this.httpHorseService.getHorses(),
       this.httpPrixService.getPrix(),
-      this.httpInterventionService.getPrestations()
+      this.httpInterventionService.getPrestations(),
+      this.contactsService.getContactsMail(),
+      this.contactMailResponseService.getContactMailResponse()
     ]).subscribe((value) => {console.log(value);
       this.router.navigate(['admin/calendrier']);
     });

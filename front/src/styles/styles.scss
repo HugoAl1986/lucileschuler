@@ -55,14 +55,8 @@ li{
    width:100%;
 }
 
-// full calendar
+th{
+   background-color: var(--bg-color-th) !important;
+}
 
-:root {
-   --bs-button-bg-color: #b479cb !important;
-   --bs-border-color: #651b8d;
-   --bs-button-active-bg-color: #651b8d;
-   --bs-button-border-color : #651b8d;
-   --bs-button-hover-bg-color: #651b8d;
-   --bs-today-bg-color:#dfc5e9;
- }
  

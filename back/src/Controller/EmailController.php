@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ContactMail;
 use App\Services\EmailService;
 use App\Utils\Serialization;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,20 +17,20 @@ class EmailController extends AbstractController
     public function __construct(private MailerInterface $mailer, private EmailService $es, private Serialization $serialization)
     {
     }
-    #[Route('/contact_email', name: 'contact_email')]
+    #[Route('/api/contact_email', name: 'contact_email')]
     public function sendContactEmail(Request $req): JsonResponse
     {
         $payload = $req->getContent();
-        $contact = $this->serialization->deserializeEmailContactJson($payload);
+        $contact = $this->serialization->deserializeJson($payload,ContactMail::class);
         $this->es->saveContact($contact);
         $response = $this->es->sendContactMail($contact);
         return $this->json(["message" => $response["content"]], $response["status_code"]);
     }
 
-    #[Route('/api/get_contactsEmail', name: 'get_contacts_email')]
+    #[Route('/api/admin/get_contacts_email', name: 'get_contacts_email')]
     public function getContactsEmail()
     {
         $response = $this->es->getContactsEmail();
-        return $this->json([$response["content"]], $response["status_code"]);
+        return $this->json($response["content"], $response["status_code"]);
     }
 }

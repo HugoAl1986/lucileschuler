@@ -13,10 +13,10 @@ export class ModalDeleteInterventionComponent {
     @Inject(MAT_DIALOG_DATA) public data: Intervention,
     private httpInterventionService: HttpInterventionService
   ) {
-    console.log(this.data);
   }
 
   removeIntervention(): void {
+    console.log(this.data);
     this.httpInterventionService.deleteIntervention(this.data.id).subscribe((data:string) => console.log(data));
   }
 }

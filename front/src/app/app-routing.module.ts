@@ -13,6 +13,8 @@ import { LoginComponent } from './users/pages/login/login.component';
 import { EditHorseComponent } from './admin/pages/horses/edit-horse/edit-horse.component';
 import { InterventionsComponent } from './admin/pages/interventions/interventions.component';
 import { ReportComponent } from './admin/components/report/report.component';
+import { ContactsComponent } from './admin/pages/contacts/contacts.component';
+import { ContactsAnswerComponent } from './admin/pages/contacts-answer/contacts-answer.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
           {
             path: 'calendrier',
             component: CalendarComponent,
+          },
+          {
+            path:'contacts',
+            component:ContactsComponent
+          },
+          {
+            path:'contacts/answer/:id',
+            component:ContactsAnswerComponent
           },
           {
             path: 'clients',

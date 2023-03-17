@@ -18,14 +18,4 @@ class Serialization
     {
         return $this->serializer->deserialize($datas, $clazz, 'json');
     }
-
-    public function deserializeEmailContactJson($datas)
-    {
-
-        $context = new ObjectNormalizerContextBuilder();
-        $context->withGroups(['when_post'])
-            ->toArray();
-
-        return $this->serializer->deserialize($datas, ContactMail::class, 'json', [ObjectNormalizer::GROUPS => 'when_post']);
-    }
 }

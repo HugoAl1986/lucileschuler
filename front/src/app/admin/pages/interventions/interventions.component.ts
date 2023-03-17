@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { Intervention } from 'src/app/shared/interfaces/intervention.interface';
 import { HttpInterventionService } from 'src/app/shared/services/http-intervention.service';
 import { ModalDeleteInterventionComponent } from '../../components/modal-delete-intervention/modal-delete-intervention.component';
+import { ModalSendReportComponent } from '../../components/modal-send-report/modal-send-report.component';
 
 
 @Component({
@@ -30,13 +31,14 @@ export class InterventionsComponent {
   displayedColumns: string[] = [
     'title',
     'start',
-    'end',
+    'heure',
     'cheval',
     'nom', 
     'prenom',
     'adresseIntervention',
     'rapport',
     'actions',
+    'supprimer'
   ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -58,10 +60,16 @@ export class InterventionsComponent {
     });
   }
 
-  openDialog(intervention: Intervention) {
+  openDialogDelete(intervention: Intervention) {
      this.dialog.open(ModalDeleteInterventionComponent, {
       data: intervention,
     }); 
+  }
+
+  openDialogSendReport(intervention:any){
+    this.dialog.open(ModalSendReportComponent,{
+      data:intervention
+    })
   }
 
   displayNotifReport(intervention:any) : boolean{

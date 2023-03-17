@@ -6,4 +6,5 @@ export interface Report{
     url?:string,
     createdAt?:string,
     intervention?:Intervention
+    sent?:boolean
 }

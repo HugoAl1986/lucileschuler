@@ -26,6 +26,9 @@ class Report
     #[ORM\JoinColumn(nullable: false)]
     private ?Prestation $prestation = null;
 
+    #[ORM\Column]
+    private ?bool $sent = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Report
     public function setPrestation(Prestation $prestation): self
     {
         $this->prestation = $prestation;
+
+        return $this;
+    }
+
+    public function isSent(): ?bool
+    {
+        return $this->sent;
+    }
+
+    public function setSent(bool $sent): self
+    {
+        $this->sent = $sent;
 
         return $this;
     }

@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { MatPaginatorCustom } from 'src/app/admin/pages/clients/clients.component';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const MATERIALS = [
   MatButtonModule,
@@ -36,7 +37,8 @@ const MATERIALS = [
   MatProgressSpinnerModule, 
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatCheckboxModule
 ];
 
 @NgModule({

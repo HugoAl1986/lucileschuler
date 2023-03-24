@@ -16,13 +16,13 @@ import { RequestInterceptor } from './shared/services/request.interceptor';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     AccueilComponent,
     FormLoginComponent
-    
   ],
   imports: [
     BrowserModule,

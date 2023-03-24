@@ -1,20 +1,64 @@
-
-<div class="container-stats" class="d-flex justify-content-between flex-wrap p-5">
-    <h2 class="mat-h2 dashboard">Dashboard</h2>
-    <mat-card *ngFor="let c of cardContent;let i = index" >
-        <mat-card-content class="d-flex justify-content-between flex-wrap ">
-            <div class="icon-container">
-                <fa-icon [icon]="c['icon']" style ="color:{{c['color']}};font-size:65px"></fa-icon>
-            </div> 
-            <div class="content">
-                <p> {{c['title']}}</p>
-                <p> {{c['content']}}</p>
-            </div>  
-        </mat-card-content>
-        <mat-card-footer class="p-2 d-flex justify-content-end"> 
-            <fa-icon class="pe-2" [icon]="c['iconFooter']" style ="color:#999;font-size:15px"></fa-icon>
-            <span [style.fontSize.px]="12" [style.color]="'#999'" >{{c['option']}}</span>
-        </mat-card-footer>
-    </mat-card>
+<div
+  class="container-stats"
+  class="d-flex justify-content-between flex-wrap p-5"
+>
+  <h2 class="mat-h2 dashboard">Dashboard</h2>
+  <mat-card *ngFor="let c of cardContent; let i = index">
+    <mat-card-content class="d-flex justify-content-between flex-wrap">
+      <div class="icon-container">
+        <fa-icon
+          [icon]="c['icon']"
+          style="color:{{ c['color'] }};font-size:65px"
+        ></fa-icon>
+      </div>
+      <div class="content">
+        <p>{{ c["title"] }}</p>
+        <p *ngIf="c['title'] !== 'Notifications'" class="content-other">
+          {{ c["content"] }}
+        </p>
+        <p
+          *ngIf="c['title'] == 'Notifications'"
+          class="notifications mat-body-1 d-flex flex-wrap justify-content-start align-items-center"
+        >
+          <span class="d-flex text-align-center justify-content-end w-100"
+            >Rapports :
+            <a
+              *ngIf="c['content']['report']"
+              [routerLink]="['/admin/interventions']"
+              ><span class="notifs-data">{{ c["content"]["report"] }} </span></a
+            >
+            <mat-icon
+              *ngIf="!c['content']['report']"
+              fontIcon="done"
+              color="accent"
+            ></mat-icon>
+          </span>
+          <span class="d-flex text-align-center justify-content-end w-100"
+            >Mails :
+            <a
+              *ngIf="c['content']['mail']"
+              [routerLink]="['/admin/contacts']"
+              ><span class="notifs-data d-flex justify-content-end text-align-center">{{ c["content"]["mail"] }} </span></a
+            >
+            <mat-icon
+              *ngIf="!c['content']['mail']"
+              fontIcon="done"
+              color="accent"
+              class="d-flex justify-content-end text-align-center"
+            ></mat-icon>
+          </span>
+        </p>
+      </div>
+    </mat-card-content>
+    <mat-card-footer *ngIf="c['option']" class="p-2 d-flex justify-content-end">
+      <fa-icon
+        class="pe-2"
+        [icon]="c['iconFooter']"
+        style="color: #b479cb; font-size: 15px"
+      ></fa-icon>
+      <span [style.fontSize.px]="12" [style.color]="'#999'">{{
+        c["option"]
+      }}</span>
+    </mat-card-footer>
+  </mat-card>
 </div>
-

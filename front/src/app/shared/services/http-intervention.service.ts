@@ -49,6 +49,7 @@ export class HttpInterventionService {
             age_cheval : data.horse.age,
             report : data.report,
             paid : data.paid,
+            prix:data.prix,
             adresseIntervention: data.adressePrestation,
           };
           newInterventionArray.push(interventionData);

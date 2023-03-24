@@ -1,3 +1,5 @@
+import { ContactMailResponse } from "./contact-mail-response.interface";
+
 export interface ContactMail {
     id?:number;
     email?:string;
@@ -7,4 +9,5 @@ export interface ContactMail {
     nom?:string;
     prenom?:string;
     date?:string;
+    contactMailResponse?:any
 }

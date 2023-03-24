@@ -22,7 +22,7 @@ class EmailService
     public function saveContact(ContactMail $contact)
     {
         $date = new DateTimeImmutable("now", new DateTimeZone("Europe/Paris"));
-        $date->format("d-m-Y H:i:s");
+        //$date->format("d-m-Y H:i:s");
         $contact->setDate($date);
 
         $em = $this->managerRegistry->getManager();
@@ -67,5 +67,21 @@ class EmailService
         }
 
         return ["content" => $contacts, "status_code" => 200];
+    }
+
+    public function setContactMailToRead($id_contact_mail) : array {
+        $contactMail = $this->rep->find($id_contact_mail);
+        if(empty($contactMail)){
+            return["content" => "L'id de ce contact ne correspond pas", "status_code" => 404];
+        };
+        $contactMail->setMessageLu(true);
+        try{
+            $this->rep->save($contactMail,true);
+        }catch(\Exception $e){
+            return ["content" => "une erreur est survenue lors de l'enregistrement en base " .$e->getMessage(), "status_code" => 500];
+        }
+
+        return ["content" => $contactMail, "status_code" => 200];
+        
     }
 }

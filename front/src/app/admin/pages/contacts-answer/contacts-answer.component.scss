@@ -8,6 +8,12 @@ hr {
   text-align: left;
   border: 1px solid var(--fc-button-bg-color);
 }
-textarea{
-    line-height: 1.4em !important;
+.message{
+  background-color:rgb(247, 247, 247);
+  padding:10px;
+}
+.response{
+  background-color:rgb(247, 247, 247);
+  padding:10px;
+  margin-left:20px;
 }

@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
-  FormControlName,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { faDisplay } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
-import { filter, map } from 'rxjs';
 import { ContactMailResponse } from 'src/app/shared/interfaces/contact-mail-response.interface';
 import { ContactMail } from 'src/app/shared/interfaces/contactMail.interface';
 import { BehaviourService } from 'src/app/shared/services/behaviour.service';
 import { ContactMailResponseService } from 'src/app/shared/services/contact-mail-response.service';
+import { ContactsService } from 'src/app/shared/services/contacts.service';
 
 @Component({
   selector: 'app-contacts-answer',
@@ -23,7 +21,9 @@ export class ContactsAnswerComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private behaviourService: BehaviourService,
-    private contactMailResponeService:ContactMailResponseService
+    private contactMailResponeService:ContactMailResponseService,
+    private contactMailService:ContactsService,
+    private router:Router
   ) {}
 
   contactMail: ContactMail;
@@ -36,20 +36,27 @@ export class ContactsAnswerComponent implements OnInit {
   ngOnInit(): void {
     this.behaviourService.contactsMail.subscribe(
       (contactsMail: ContactMail[]) => {
-        this.contactMail = _.find(contactsMail, (contactMail: ContactMail) => {
+        this.contactMail = _.find(contactsMail, (contactMail: ContactMail) => {       
           return contactMail.id == this.activatedRoute.snapshot.params['id'];
         });
         this.response = false;
+        console.log(this.contactMail);
       }
     );
   }
 
   onSubmit():void{
     this.contactMailResponeService.sendContactMailResponse(this.responseForm.value, this.contactMail.id).subscribe((data:ContactMailResponse) => {
-      console.log(data)
+      this.router.navigate(['admin/contacts']);
     });
   }
-  displayResponse():void{
-    this.response = true
+  displayResponse(data:boolean):void{
+    this.response = data;
+   }
+
+   setReadToContactMail(): void{
+    this.contactMailService.setContactMailToRead(this.contactMail.id).subscribe((data:ContactMail )=> {
+      this.router.navigate(['admin/contacts']);
+    });
    }
 }

@@ -27,9 +27,9 @@ class PrestationController extends AbstractController
         $response = $this->prestationService->createPrestation($prestation, $id_horse, $id_prix);
 
 
-        return $this->json($response["content"], $response["status_code"], ['Content-Type' => 'application/json; charset=utf-8'], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
+        return $this->json($response["content"], $response["status_code"], [], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        },AbstractNormalizer::ATTRIBUTES => ["id", "start", "end","title", "report","paid", "horse" => ['id', 'nom','age', 'client' => ['id', 'nom', 'prenom']]]]);;
+        },AbstractNormalizer::ATTRIBUTES => ["id", "start", "end","title", "report","paid","prix","horse" => ['id', 'nom','age', 'client' => ['id', 'nom', 'prenom']]]]);;
     }
 
     #[Route('/api/admin/update_prestation/{id_horse}/{id_prix}/{id_prestation}', name: 'api_update_prestation')]

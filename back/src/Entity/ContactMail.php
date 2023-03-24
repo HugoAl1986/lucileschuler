@@ -18,7 +18,6 @@ class ContactMail
 
    
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    #[Context([DateTimeNormalizer::FORMAT_KEY => 'd-m-Y H:i:s'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
@@ -38,6 +37,11 @@ class ContactMail
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\OneToOne(mappedBy: 'contactMail', cascade: ['persist', 'remove'])]
+    private ?ContactMailResponse $contactMailResponse = null;
+
+    
 
     public function getId(): ?int
     {
@@ -127,4 +131,23 @@ class ContactMail
 
         return $this;
     }
+
+    public function getContactMailResponse(): ?ContactMailResponse
+    {
+        return $this->contactMailResponse;
+    }
+
+    public function setContactMailResponse(ContactMailResponse $contactMailResponse): self
+    {
+        // set the owning side of the relation if necessary
+        if ($contactMailResponse->getContactMail() !== $this) {
+            $contactMailResponse->setContactMail($this);
+        }
+
+        $this->contactMailResponse = $contactMailResponse;
+
+        return $this;
+    }
+
+   
 }

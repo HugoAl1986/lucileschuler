@@ -33,7 +33,7 @@ export class HttpAdresseInterventionService {
       .createIntervention(intervention, id_horse, id_prix)
       .pipe(
         mergeMap((intervention: Intervention) => {
-          console.log
+          console.log(intervention);
           const interventionData = {
             id: intervention.id,
             title: intervention.title,
@@ -43,6 +43,7 @@ export class HttpAdresseInterventionService {
             prenom: intervention.horse.client.prenom,
             cheval: intervention.horse.nom,
             report : intervention.report,
+            prix:intervention.prix,
             paid : intervention.paid,
             age_cheval : intervention.horse.age,
             adresseIntervention: {},

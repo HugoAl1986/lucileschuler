@@ -24,6 +24,7 @@ class ContactMailResponseService {
         $contactMailResponse->setContactMail($contactMail);
         $contactMailResponse->setObject('Re: ' .$contactMail->getTitre());
         $contactMailResponse->setCreatedAt(new \DateTimeImmutable('now',new \DateTimeZone("Europe/Paris")));
+        $contactMailResponse->setContactMail($contactMail);
 
         $contactMail->setMessageLu(true);
         try{
@@ -46,4 +47,6 @@ class ContactMailResponseService {
         return ["content" => $arrayResponse,"status_code" => 200];
         
     }
+
+  
 }

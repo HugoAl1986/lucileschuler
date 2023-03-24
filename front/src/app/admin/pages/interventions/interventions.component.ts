@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import * as _ from 'lodash';
 import { Intervention } from 'src/app/shared/interfaces/intervention.interface';
 import { HttpInterventionService } from 'src/app/shared/services/http-intervention.service';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 import { ModalDeleteInterventionComponent } from '../../components/modal-delete-intervention/modal-delete-intervention.component';
 import { ModalSendReportComponent } from '../../components/modal-send-report/modal-send-report.component';
 
@@ -18,7 +19,8 @@ import { ModalSendReportComponent } from '../../components/modal-send-report/mod
 export class InterventionsComponent {
   constructor(
     private httpInterventionService: HttpInterventionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private utilsService:UtilsService
 
   ) {
    
@@ -72,9 +74,9 @@ export class InterventionsComponent {
     })
   }
 
-  displayNotifReport(intervention:any) : boolean{
+  displayNotifReport(intervention:Intervention) : boolean{
     this.date = new Date();
-    if(new Date (intervention.start).getTime() + 86400000 < this.date.getTime() && !intervention.report){
+    if(this.utilsService.checkIfNotifReport(intervention)){
       return false;
     }else{
       return true;

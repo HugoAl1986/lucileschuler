@@ -20,12 +20,12 @@ class ContactMailResponse
     #[ORM\Column(type: Types::TEXT)]
     private ?string $response = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ContactMail $ContactMail = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\OneToOne(inversedBy: 'contactMailResponse', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?ContactMail $contactMail = null;
 
     public function getId(): ?int
     {
@@ -56,17 +56,7 @@ class ContactMailResponse
         return $this;
     }
 
-    public function getContactMail(): ?ContactMail
-    {
-        return $this->ContactMail;
-    }
-
-    public function setContactMail(ContactMail $idContactMail): self
-    {
-        $this->ContactMail = $idContactMail;
-
-        return $this;
-    }
+   
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -76,6 +66,18 @@ class ContactMailResponse
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getContactMail(): ?ContactMail
+    {
+        return $this->contactMail;
+    }
+
+    public function setContactMail(ContactMail $contactMail): self
+    {
+        $this->contactMail = $contactMail;
 
         return $this;
     }

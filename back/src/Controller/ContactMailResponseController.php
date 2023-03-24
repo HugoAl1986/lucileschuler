@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Utils\Serialization;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 
@@ -32,6 +33,6 @@ class ContactMailResponseController extends AbstractController
         $response = $this->contactMailResponseService->getContactMailResponse();
         return $this->json($response["content"], $response["status_code"],[], [ObjectNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object) {
             return $object->getId();
-        }]);
+        }, AbstractNormalizer::ATTRIBUTES => ["id", "object","createdAt","response","contactMail" => ["id","date","email","message","messageLu","nom","prenom","titre"]]]);
     }
 }

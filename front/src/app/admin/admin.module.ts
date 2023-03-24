@@ -53,7 +53,7 @@ import { ContactsAnswerComponent } from './pages/contacts-answer/contacts-answer
     ReportComponent,
     ModalSendReportComponent,
     ContactsComponent,
-    ContactsAnswerComponent,
+    ContactsAnswerComponent
   ],
   imports: [
     CommonModule,
@@ -65,9 +65,10 @@ import { ContactsAnswerComponent } from './pages/contacts-answer/contacts-answer
     FormsModule,
     ReactiveFormsModule,
     NgxMatTimepickerModule.setLocale('fr-FR'),
-    MatSelectFilterModule
+    MatSelectFilterModule,
+    
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
 })
 export class AdminModule {
   constructor() {

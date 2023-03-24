@@ -4,38 +4,48 @@
     From:
     <span [ngStyle]="{ color: 'grey' }"
       >{{ contactMail.prenom && contactMail.prenom }}
-      {{ contactMail.nom && contactMail.nom}}&#x3008;{{
+      {{ contactMail.nom && contactMail.nom }}&#x3008;{{
         contactMail.email
       }}&#x3009;</span
     >
   </p>
-  <p class="w-100 pt-1 pb-1"> 
-    Objet: <span [ngStyle]="{ color: 'grey' }">{{contactMail.titre}} </span>
+  <p class="w-100 pt-1 pb-1">
+    Objet: <span [ngStyle]="{ color: 'grey' }">{{ contactMail.titre }} </span>
   </p>
-  <p class="w-100 pb-1">
-    Date : <span [ngStyle]="{ color: 'grey' }">{{contactMail.date}} </span>
+  <p class="w-100 pb-1 mb-2">
+    Date : <span [ngStyle]="{ color: 'grey' }">{{ contactMail.date | date : "dd/MM/yyyy HH:mm" : "GMT" }} </span>
   </p>
-  <p class="w-100 pb-2">{{ contactMail.message }}</p>
+  <pre class="w-100 mat-body-1 message">{{ contactMail.message }}</pre>
   <div
-    class="container-button w-100 pb-3 d-flex justify-content-start"
-    *ngIf="!response"
+    class="container-button w-100 pb-3 mt-2 d-flex justify-content-start"
+    *ngIf="!response && !contactMail.contactMailResponse"
   >
-    <button mat-raised-button color="primary">Retour</button>
-    <button mat-raised-button color="accent" (click)="displayResponse()">
+    <a [routerLink]="['/admin/contacts']"
+      ><button mat-button type="button" color="primary">Retour</button>
+    </a>
+
+    <button
+      type="button"
+      mat-button
+      color="accent"
+      (click)="setReadToContactMail()"
+      *ngIf="!contactMail.messageLu"
+    >
+      Marquer comme lu
+    </button>
+
+    <button mat-raised-button color="accent" (click)="displayResponse(true)">
       Répondre
     </button>
   </div>
-  <div class="pb-2 w-100 d-flex justify-content-start" *ngIf="response">
-    <hr>
-  </div>
-  <div class="w-100" *ngIf="response">
+  <div class="w-100" *ngIf="response && !contactMail.contactMailResponse">
     <form [formGroup]="responseForm" (ngSubmit)="onSubmit()">
-      <mat-form-field class="w-100">
+      <mat-form-field class="w-100" color="accent">
         <mat-label>Réponse</mat-label>
-        <textarea matInput formControlName="response"></textarea>
+        <textarea matInput formControlName="response" class="mat-body-1"></textarea>
       </mat-form-field>
       <div class="w-100 d-flex justify-content-start container-button">
-        <button mat-raised-button color="primary">Annuler</button>
+        <button mat-raised-button type="button" color="primary" (click) = displayResponse(false)>Annuler</button>
         <button
           mat-raised-button
           color="accent"
@@ -47,4 +57,5 @@
       </div>
     </form>
   </div>
+  <pre *ngIf="contactMail.contactMailResponse" class="response mat-body-1"> {{contactMail.contactMailResponse.response}}</pre>
 </div>

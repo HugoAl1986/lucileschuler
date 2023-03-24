@@ -1,6 +1,7 @@
 import { AdresseIntervention } from "./adresse-intervention.interface";
 import { Client } from "./client.interface";
 import { Horse } from "./horse.interface";
+import { Prix } from "./prix.interface";
 import { Report } from "./report.interface";
 
 export interface Intervention {
@@ -9,7 +10,7 @@ export interface Intervention {
     start?:string;
     end?:string;
     horse?:Horse;
-    prix?:string;
+    prix?:Prix;
     client?:Client;
     adressePrestation?:AdresseIntervention
     report?:Report;

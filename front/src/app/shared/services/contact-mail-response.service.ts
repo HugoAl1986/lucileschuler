@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { ContactMailResponse } from '../interfaces/contact-mail-response.interface';
 import { ContactMail } from '../interfaces/contactMail.interface';
 import { BehaviourService } from './behaviour.service';
@@ -23,7 +23,7 @@ export class ContactMailResponseService {
       (contactMailResponse:ContactMailResponse[]) => {
         this.behaviourService.contactMailResponse.next(contactMailResponse);
       }
-    ));
+    ))
    }
 
    sendContactMailResponse(contactMailResponse:ContactMailResponse, id_contact_mail:number):Observable<ContactMailResponse>{
@@ -33,6 +33,7 @@ export class ContactMailResponseService {
        _.map(contactMailDatas,(contactMail:ContactMail) => {
           if(contactMail.id == id_contact_mail){
             contactMail.messageLu = true;
+            contactMail.contactMailResponse = {id : contactMailResponse.id, response : contactMailResponse.response};
           }
         })
         this.behaviourService.contactsMail.next(contactMailDatas);

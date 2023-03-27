@@ -36,7 +36,7 @@ class ReportService
         $report->setPrestation($prestation);
         $report->setNumber($numberReport);
         $report->setSent(false);
-        $report->setUrl('C:/Users/hugoa/Dev/shiatsu-lulu/front/src/assets/reports/' . $numberReport . '.pdf');
+        $report->setUrl('C:/Users/hugoa/Dev/shiatsu-lulu/client/src/assets/reports/' . $numberReport . '.pdf');
 
         try {
             $this->reportRepository->save($report, true);

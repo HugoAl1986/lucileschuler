@@ -1,12 +1,12 @@
 
 ###> symfony/framework-bundle ###
-/back/.env.local
-/back/.env.local.php
-/back/.env.*.local
-/back/config/secrets/prod/prod.decrypt.private.php
-/back/public/bundles/
-/back/var/
-/back/vendor/
+/server/.env.local
+/server/.env.local.php
+/server/.env.*.local
+/server/config/secrets/prod/prod.decrypt.private.php
+/server/public/bundles/
+/server/var/
+/server/vendor/
 ###< symfony/framework-bundle ###
 shiatsu_lulu.pdf
 Astuto - 06-01-2020.docx
@@ -14,43 +14,43 @@ Astuto - 06-01-2020.docx
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
-/front/dist
-/front/tmp
-/front/out-tsc
-/front/bazel-out
+/client/dist
+/client/tmp
+/client/out-tsc
+/client/bazel-out
 
 # Node
-/front/node_modules
-/front/npm-debug.log
-/front/yarn-error.log
+/client/node_modules
+/client/npm-debug.log
+/client/yarn-error.log
 
 # IDEs and editors
-/front/.idea/
-/front/.project
-/front/.classpath
-/front/.c9/
-/front/*.launch
-/front/.settings/
-/front/*.sublime-workspace
+/client/.idea/
+/client/.project
+/client/.classpath
+/client/.c9/
+/client/*.launch
+/client/.settings/
+/client/*.sublime-workspace
 
 # Visual Studio Code
-/front/.vscode/*
-/front/!.vscode/settings.json
-/front/!.vscode/tasks.json
-/front/!.vscode/launch.json
-/front/!.vscode/extensions.json
-/front/.history/*
+/client/.vscode/*
+/client/!.vscode/settings.json
+/client/!.vscode/tasks.json
+/client/!.vscode/launch.json
+/client/!.vscode/extensions.json
+/client/.history/*
 
 # Miscellaneous
-/front/.angular
-/front/.sass-cache/
-/front/connect.lock
-/front/coverage
-/front/libpeerconnection.log
-/front/testem.log
-/front/typings
+/client/.angular
+/client/.sass-cache/
+/client/connect.lock
+/client/coverage
+/client/libpeerconnection.log
+/client/testem.log
+/client/typings
 
 # System files
-/front/.DS_Store
-/front/Thumbs.db
+/client/.DS_Store
+/client/Thumbs.db
 

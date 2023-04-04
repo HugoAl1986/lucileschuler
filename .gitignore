@@ -38,6 +38,7 @@
 /client/!.vscode/launch.json
 /client/!.vscode/extensions.json
 /client/.history/*
+/.vscode
 
 # Miscellaneous
 /client/.angular
@@ -57,5 +58,4 @@
 shiatsu_lulu.pdf
 Astuto - 06-01-2020.docx
 exclude_file_server
-/test
 

@@ -15,7 +15,7 @@ import { Report } from '../interfaces/report.interface';
 export class UtilsService {
   constructor() {}
 
-  urlApi: string = 'https://localhost:8000/api/';
+  urlApi: string = 'https://test.lucileschuler.com/api/';
   urlReport: string = 'C:/Users/hugoa/Dev/shiatsu-lulu/back/assets/reports/';
 
   formatDate(date: Date) {

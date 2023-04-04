@@ -11,6 +11,8 @@ import { FormLoginComponent } from './users/components/form-login/form-login.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './shared/services/request.interceptor';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 
 
 
@@ -34,7 +36,7 @@ import { RequestInterceptor } from './shared/services/request.interceptor';
     HttpClientModule
     
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }, { provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {

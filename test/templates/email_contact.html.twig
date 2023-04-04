@@ -1,0 +1,16 @@
+
+    {% apply inline_css(source('@styles/contact_mail.css')) %}
+
+    <p> Lucile, </p>
+    <p> Tu viens de recevoir une demande d'information de : {{prenom}} {{nom | upper}} </p>
+    <p> Voici son message : </p>
+    <p class="content_message">
+        " {{message}} "
+    </p>
+    <p> Tu peux la joindre via son mail : <a href={{"mailto:" ~ mail}}>{{mail}}</a> </p>
+
+    
+
+    {% endapply %}
+   
+    

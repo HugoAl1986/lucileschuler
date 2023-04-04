@@ -7,9 +7,7 @@
 /server/public/bundles/
 /server/var/
 /server/vendor/
-###< symfony/framework-bundle ###
-shiatsu_lulu.pdf
-Astuto - 06-01-2020.docx
+
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
@@ -53,4 +51,10 @@ Astuto - 06-01-2020.docx
 # System files
 /client/.DS_Store
 /client/Thumbs.db
+
+
+### Other files
+shiatsu_lulu.pdf
+Astuto - 06-01-2020.docx
+exclude_file_server
 
